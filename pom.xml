@@ -83,12 +83,12 @@
             <version>${spring.version}</version>
         </dependency>
 
-<!--        &lt;!&ndash;不加会报错 除非自己实现一个Bean Validation provider&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-validator</artifactId>-->
-<!--            <version>5.2.4.Final</version>-->
-<!--        </dependency>-->
+        <!--不加会报错 除非自己实现一个Bean Validation provider-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
 
         <!-- mybatis核心包 -->
         <dependency>
@@ -149,6 +149,21 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.8</version>
         </dependency>
+
+        <!-- joda-time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.9</version>
+        </dependency>
+
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+
 
 
         <!-- 上传组件包 -->
