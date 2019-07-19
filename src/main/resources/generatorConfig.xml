@@ -46,7 +46,7 @@
         <!--对应数据库表名，多个表，请复制指定 -->
         <table tableName="user" domainObjectName="User"
                enableCountByExample="true"
-               enableUpdateByExample="false"
+               enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"
@@ -58,12 +58,19 @@
 <!--                &lt;!&ndash; 使用property属性来指定列要生成的属性名称 &ndash;&gt;-->
 <!--            </columnOverride>-->
         </table>
-        <!--其它table在下面继续添加-->
-<!--        <table tableName="Admin" domainObjectName="Admin" enableCountByExample="false" enableUpdateByExample="false"-->
-<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
-<!--               selectByExampleQueryId="false" enableInsert="false"-->
-<!--               enableSelectByPrimaryKey="false" selectByPrimaryKeyQueryId="false">-->
-<!--            <property name="useActualColumnNames" value="true"/>-->
-<!--        </table>-->
+        <table tableName="article" domainObjectName="Article"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"
+               enableInsert="true"
+               enableSelectByPrimaryKey="true"
+               selectByPrimaryKeyQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+            <!--            <columnOverride column="Class" property="stuClass">-->
+            <!--                &lt;!&ndash; 使用property属性来指定列要生成的属性名称 &ndash;&gt;-->
+            <!--            </columnOverride>-->
+        </table>
     </context>
 </generatorConfiguration>

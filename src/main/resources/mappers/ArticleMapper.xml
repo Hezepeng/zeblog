@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeblog.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.zeblog.entity.Article">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="Author" jdbcType="VARCHAR" property="author" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ReadTimes" jdbcType="INTEGER" property="readTimes" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="Content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zeblog.entity.Article">
+    insert into article (Id, Title, Author, 
+      CreateTime, ReadTimes, IsDelete, 
+      Content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{readTimes,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Article">
+    update article
+    set Title = #{title,jdbcType=VARCHAR},
+      Author = #{author,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      ReadTimes = #{readTimes,jdbcType=INTEGER},
+      IsDelete = #{isDelete,jdbcType=BIT},
+      Content = #{content,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,Id, Title, Author, CreateTime, ReadTimes, IsDelete, Content
+    from article
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select Id, Title, Author, CreateTime, ReadTimes, IsDelete, Content
+    from article
+  </select>
+</mapper>
