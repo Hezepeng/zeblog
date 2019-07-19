@@ -1,6 +1,6 @@
-package com.hezepeng.service;
+package com.zeblog.service;
 
-import com.hezepeng.entity.User;
+import com.zeblog.entity.User;
 
 import java.util.List;
 

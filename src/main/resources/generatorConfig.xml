@@ -31,7 +31,7 @@
         </jdbcConnection>
 
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.hezepeng.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.zeblog.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -40,7 +40,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成Dao类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.hezepeng.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zeblog.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--对应数据库表名，多个表，请复制指定 -->

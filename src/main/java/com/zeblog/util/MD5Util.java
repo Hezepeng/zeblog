@@ -1,4 +1,4 @@
-package com.hezepeng.util;
+package com.zeblog.util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

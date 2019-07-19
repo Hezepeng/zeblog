@@ -1,4 +1,4 @@
-package com.hezepeng.common;
+package com.zeblog.common;
 
 /**
  * @author: Hezepeng

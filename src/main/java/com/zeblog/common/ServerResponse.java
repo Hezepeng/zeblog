@@ -1,4 +1,4 @@
-package com.hezepeng.common;
+package com.zeblog.common;
 
 /**
  * @author: Hezepeng
@@ -8,7 +8,6 @@ package com.hezepeng.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 

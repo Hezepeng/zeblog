@@ -1,10 +1,10 @@
-package com.hezepeng.dao;
+package com.zeblog.dao;
 
-import com.hezepeng.entity.User;
+import com.zeblog.entity.User;
 import java.util.List;
 
 /**
- * @author hezepeng
+ * @author zeblog
  */
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);

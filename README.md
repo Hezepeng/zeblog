@@ -1,1 +1,1 @@
-# ssm-archetype
+# ZeBlog

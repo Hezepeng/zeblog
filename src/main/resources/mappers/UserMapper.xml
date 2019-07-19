@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hezepeng.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.hezepeng.entity.User">
+<mapper namespace="com.zeblog.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.zeblog.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -12,13 +12,13 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.hezepeng.entity.User">
+  <insert id="insert" parameterType="com.zeblog.entity.User">
     insert into user (id, username, password, 
       nickname, createTime)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.hezepeng.entity.User">
+  <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.User">
     update user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

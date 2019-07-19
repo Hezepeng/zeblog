@@ -1,4 +1,4 @@
-package com.hezepeng.entity;
+package com.zeblog.entity;
 
 import java.util.Date;
 

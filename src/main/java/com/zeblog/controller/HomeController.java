@@ -1,7 +1,6 @@
-package com.hezepeng.controller;
+package com.zeblog.controller;
 
-import com.hezepeng.service.UserService;
-import com.hezepeng.service.impl.UserServiceImpl;
+import com.zeblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

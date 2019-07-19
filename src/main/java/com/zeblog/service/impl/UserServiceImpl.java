@@ -1,8 +1,8 @@
-package com.hezepeng.service.impl;
+package com.zeblog.service.impl;
 
-import com.hezepeng.dao.UserMapper;
-import com.hezepeng.entity.User;
-import com.hezepeng.service.UserService;
+import com.zeblog.dao.UserMapper;
+import com.zeblog.entity.User;
+import com.zeblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

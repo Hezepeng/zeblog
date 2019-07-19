@@ -1,4 +1,4 @@
-package com.hezepeng.util;
+package com.zeblog.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class PropertiesUtil {
     private static Properties props;
 
     static {
-        String fileName = "hezepeng.properties";
+        String fileName = "zeblog.properties";
         props = new Properties();
         try {
             props.load(new InputStreamReader(Objects.requireNonNull(PropertiesUtil.class.getClassLoader().getResourceAsStream(fileName)),"UTF-8"));
