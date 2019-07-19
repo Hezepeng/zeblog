@@ -18,7 +18,7 @@ public class MD5Util {
      * @param str 传入要加密的字符串
      * @return MD5加密后的字符串
      */
-    private static String getMD5(String str) {
+    public static String getMD5(String str) {
         try {
             // 生成一个MD5加密计算摘要
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -41,7 +41,7 @@ public class MD5Util {
      * @return MD5加密后的字符串
      */
 
-    private static String getMD5Upper(String s) {
+    public static String getMD5Upper(String s) {
         char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
         try {

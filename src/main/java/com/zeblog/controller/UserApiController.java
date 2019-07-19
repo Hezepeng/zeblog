@@ -24,9 +24,32 @@ public class UserApiController {
     private UserService userService;
 
     @ResponseBody
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public ServerResponse<User> login(String username, String password, HttpSession httpSession) {
         return userService.login(username, password);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public ServerResponse register(User user) {
+        return userService.register(user);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public ServerResponse update(User user) {
+        return userService.updateUser(user);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    public ServerResponse delete(HttpSession session, String username) {
+        return userService.deleteUser(session, username);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    public ServerResponse delete(String username) {
+        return userService.getUserDetail(username);
+    }
 }

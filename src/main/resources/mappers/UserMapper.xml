@@ -1,70 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zeblog.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.zeblog.entity.User">
-    <id column="UserId" jdbcType="VARCHAR" property="userId" />
-    <result column="Username" jdbcType="VARCHAR" property="username" />
-    <result column="Password" jdbcType="VARCHAR" property="password" />
-    <result column="Nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="Name" jdbcType="VARCHAR" property="name" />
-    <result column="Phone" jdbcType="VARCHAR" property="phone" />
-    <result column="Email" jdbcType="VARCHAR" property="email" />
-    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="LoginTimes" jdbcType="INTEGER" property="loginTimes" />
-    <result column="LastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
-    <result column="Role" jdbcType="VARCHAR" property="role" />
-    <result column="Avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="Qq" jdbcType="VARCHAR" property="qq" />
-    <result column="Wechat" jdbcType="VARCHAR" property="wechat" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <resultMap id="BaseResultMap" type="com.zeblog.entity.User">
+        <id column="UserId" jdbcType="INTEGER" property="userId"/>
+        <result column="Username" jdbcType="VARCHAR" property="username"/>
+        <result column="Password" jdbcType="VARCHAR" property="password"/>
+        <result column="Nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="Phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="Email" jdbcType="VARCHAR" property="email"/>
+        <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="LoginTimes" jdbcType="INTEGER" property="loginTimes"/>
+        <result column="LastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+        <result column="Role" jdbcType="VARCHAR" property="role"/>
+        <result column="Avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="Qq" jdbcType="VARCHAR" property="qq"/>
+        <result column="Wechat" jdbcType="VARCHAR" property="wechat"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
-    where UserId = #{userId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.zeblog.entity.User">
+    where UserId = #{userId,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByUsername" parameterType="java.lang.String">
+    delete from user
+    where Username = #{username,jdbcType=String}
+    </delete>
+    <insert id="insert" parameterType="com.zeblog.entity.User">
     insert into user (UserId, Username, Password,
       Nickname, Name, Phone, 
       Email, CreateTime, LoginTimes, 
       LastLoginTime, Role, Avatar, 
       Qq, Wechat)
-    values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{nickname,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{loginTimes,jdbcType=INTEGER}, 
       #{lastLoginTime,jdbcType=TIMESTAMP}, #{role,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
       #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.User">
-    update user
-    set Username = #{username,jdbcType=VARCHAR},
-      Password = #{password,jdbcType=VARCHAR},
-      Nickname = #{nickname,jdbcType=VARCHAR},
-      Name = #{name,jdbcType=VARCHAR},
-      Phone = #{phone,jdbcType=VARCHAR},
-      Email = #{email,jdbcType=VARCHAR},
-      CreateTime = #{createTime,jdbcType=TIMESTAMP},
-      LoginTimes = #{loginTimes,jdbcType=INTEGER},
-      LastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
-      Role = #{role,jdbcType=VARCHAR},
-      Avatar = #{avatar,jdbcType=VARCHAR},
-      Qq = #{qq,jdbcType=VARCHAR},
-      Wechat = #{wechat,jdbcType=VARCHAR}
-    where UserId = #{userId,jdbcType=VARCHAR}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    </insert>
+    <update id="updateByUsernameSelective" parameterType="com.zeblog.entity.User">
+        update user
+        <set>
+            <if test="password != null">
+                Password = #{password}
+            </if>
+            <if test="nickname != null">
+                Nickname = #{nickname}
+            </if>
+            <if test="name != null">
+                Name = #{name}
+            </if>
+            <if test="phone != null">
+                Phone = #{phone}
+            </if>
+            <if test="email != null">
+                Email = #{email}
+            </if>
+            <if test="avatar != null">
+                Avatar = #{avatar}
+            </if>
+            <if test="qq != null">
+                Qq = #{qq}
+            </if>
+            <if test="Wechat != null">
+                Wechat = #{wechat}
+            </if>
+        </set>
+        where Username = #{username,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 'true' as QUERYID,UserId, Username, Password, Nickname, Name, Phone, Email,
     CreateTime, LoginTimes, LastLoginTime, Role, Avatar, Qq, Wechat
     from user
-    where UserId = #{userId,jdbcType=VARCHAR}
+    where UserId = #{userId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
     select UserId, Username, Password, Nickname, Name, Phone, Email, CreateTime, LoginTimes,
     LastLoginTime, Role, Avatar, Qq, Wechat
     from user
   </select>
-  <select id="selectByUsername" resultType="java.lang.Integer" parameterType="java.lang.String">
-    select UserId from user where username = #{username}
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  'true' as QUERYID,UserId, Username, Password, Nickname, Name, Phone, Email,
+    CreateTime, LoginTimes, LastLoginTime, Role, Avatar, Qq, Wechat from user where username = #{username}
   </select>
-  <select id="selectByUsernameAndPassword" resultMap="BaseResultMap" parameterType="map">
+    <select id="selectByUsernameAndPassword" resultMap="BaseResultMap" parameterType="map">
     select * from user where username = #{username} and password = #{password}
   </select>
 </mapper>

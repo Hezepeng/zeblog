@@ -13,7 +13,7 @@
     <title>Title</title>
 </head>
 <body>
-<c:forEach var="item" items="${userList}">
+<c:forEach var="item" items="${userList.data}">
     ${item.username}
     <fmt:formatDate value="${item.createTime}" pattern="yyyy年MM月dd日 HH:mm:ss"></fmt:formatDate>
 </c:forEach>
