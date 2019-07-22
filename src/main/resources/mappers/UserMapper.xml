@@ -23,9 +23,9 @@
     </delete>
     <delete id="deleteByUsername" parameterType="java.lang.String">
     delete from user
-    where Username = #{username,jdbcType=String}
+    where Username = #{username,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.zeblog.entity.User">
+    <insert id="insert" parameterType="com.zeblog.entity.User" useGeneratedKeys="true" keyProperty="UserId">
     insert into user (UserId, Username, Password,
       Nickname, Name, Phone, 
       Email, CreateTime, LoginTimes, 
@@ -41,28 +41,34 @@
         update user
         <set>
             <if test="password != null">
-                Password = #{password}
+                Password = #{password},
             </if>
             <if test="nickname != null">
-                Nickname = #{nickname}
+                Nickname = #{nickname},
             </if>
             <if test="name != null">
-                Name = #{name}
+                Name = #{name},
             </if>
             <if test="phone != null">
-                Phone = #{phone}
+                Phone = #{phone},
             </if>
             <if test="email != null">
-                Email = #{email}
+                Email = #{email},
             </if>
             <if test="avatar != null">
-                Avatar = #{avatar}
+                Avatar = #{avatar},
             </if>
             <if test="qq != null">
-                Qq = #{qq}
+                Qq = #{qq},
             </if>
-            <if test="Wechat != null">
-                Wechat = #{wechat}
+            <if test="wechat != null">
+                Wechat = #{wechat},
+            </if>
+            <if test="loginTimes != null">
+                LoginTimes = #{loginTimes},
+            </if>
+            <if test="lastLoginTime != null">
+                LastLoginTime = #{lastLoginTime},
             </if>
         </set>
         where Username = #{username,jdbcType=VARCHAR}

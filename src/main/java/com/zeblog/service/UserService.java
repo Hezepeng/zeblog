@@ -5,14 +5,15 @@ import com.zeblog.entity.User;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
-    ServerResponse<User> getUserDetail(String username);
+    ServerResponse<User> getUserInfo(String username);
 
     ServerResponse<List<User>> getAllUsers();
 
-    ServerResponse<User> login(String username, String password);
+    ServerResponse<Map<String, String>> login(String username, String password);
 
     ServerResponse register(User user);
 

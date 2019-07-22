@@ -5,11 +5,11 @@ import com.zeblog.entity.User;
 import com.zeblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: Hezepeng
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * @date: 2019-07-19 15:38
  */
 @Controller
+@CrossOrigin
 @RequestMapping("api/user/")
 public class UserApiController {
 
@@ -25,19 +26,19 @@ public class UserApiController {
 
     @ResponseBody
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ServerResponse<User> login(String username, String password, HttpSession httpSession) {
-        return userService.login(username, password);
+    public ServerResponse<Map<String, String>> login(@RequestBody User user, HttpSession httpSession) {
+        return userService.login(user.getUsername(), user.getPassword());
     }
 
     @ResponseBody
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ServerResponse register(User user) {
+    public ServerResponse register(@RequestBody User user) {
         return userService.register(user);
     }
 
     @ResponseBody
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ServerResponse update(User user) {
+    public ServerResponse update(@RequestBody User user) {
         return userService.updateUser(user);
     }
 
@@ -48,8 +49,8 @@ public class UserApiController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public ServerResponse delete(String username) {
-        return userService.getUserDetail(username);
+    @RequestMapping(value = "getUserInfo", method = RequestMethod.GET)
+    public ServerResponse getUserInfo(String token) {
+        return userService.getUserInfo(token);
     }
 }
