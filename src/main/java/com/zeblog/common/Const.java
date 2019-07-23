@@ -20,6 +20,13 @@ public class Const {
     /**
      * token有效期 3600秒
      */
-    public static final Long TOKEN_VALID_TIME = 3600L;
+    public static final Long TOKEN_VALID_TIME = 3600000L;
+
+    /**
+     * token secret
+     */
+    public static final String TOKEN_SECRET = "zeblog";
+
+    public static final String TOKEN_ISSUER = "zeblog";
 
 }

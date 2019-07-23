@@ -73,7 +73,7 @@
         </set>
         where Username = #{username,jdbcType=VARCHAR}
     </update>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 'true' as QUERYID,UserId, Username, Password, Nickname, Name, Phone, Email,
     CreateTime, LoginTimes, LastLoginTime, Role, Avatar, Qq, Wechat
     from user

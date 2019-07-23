@@ -6,14 +6,18 @@ import com.zeblog.dao.UserMapper;
 import com.zeblog.entity.User;
 import com.zeblog.service.UserService;
 import com.zeblog.util.MD5Util;
+import com.zeblog.util.TokenUtil;
 import com.zeblog.util.timestampUtil;
+import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.JodaTimePermission;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import javax.json.Json;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,8 +30,11 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public ServerResponse<User> getUserInfo(String token) {
-        return ServerResponse.createBySuccess(userMapper.selectByUsername(token));
+    public ServerResponse<User> getUserInfo(HttpServletRequest request) {
+        String token = request.getHeader("X-Token");
+        Claims claims = TokenUtil.parseToken(token);
+        Integer userId = Integer.valueOf(claims.getId());
+        return ServerResponse.createBySuccess(userMapper.selectByPrimaryKey(userId));
     }
 
     @Override
@@ -49,12 +56,15 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return ServerResponse.createByErrorMessage("密码错误");
         }
+        // 记录登录时间、增加登录次数
         user.setLastLoginTime(new Date());
         user.setLoginTimes(user.getLoginTimes() + 1);
         userMapper.updateByUsernameSelective(user);
-        Map<String, String> token = new HashMap<>(10);
-        token.put("token", username);
-        return ServerResponse.createBySuccess("登陆成功", token);
+        // 签发token
+        String token = TokenUtil.createJWT(user.getUserId().toString(), user.getUsername());
+        Map<String, String> resultMap = new HashMap<>(10);
+        resultMap.put("token", token);
+        return ServerResponse.createBySuccess("登陆成功", resultMap);
     }
 
     @Override

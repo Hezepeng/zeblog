@@ -3,13 +3,14 @@ package com.zeblog.service;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
 public interface UserService {
 
-    ServerResponse<User> getUserInfo(String username);
+    ServerResponse<User> getUserInfo(HttpServletRequest request);
 
     ServerResponse<List<User>> getAllUsers();
 
