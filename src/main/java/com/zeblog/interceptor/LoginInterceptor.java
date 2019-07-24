@@ -1,7 +1,6 @@
 package com.zeblog.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.zeblog.common.Const;
 import com.zeblog.common.ResponseCode;
 import com.zeblog.common.ServerResponse;
@@ -9,18 +8,14 @@ import com.zeblog.dao.UserMapper;
 import com.zeblog.entity.User;
 import com.zeblog.util.TokenUtil;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -47,9 +42,18 @@ public class LoginInterceptor implements HandlerInterceptor {
         try {
             claims = TokenUtil.parseToken(token);
         } catch (io.jsonwebtoken.ExpiredJwtException e) {
-            System.out.println(e.getMessage());
-            // 要求重新登录
-            sendErrorMsg(response);
+            // token过期 需要重新登录
+            sendErrorMsg(response, "身份已过期，请重新登录");
+            return false;
+        } catch (io.jsonwebtoken.SignatureException e) {
+            // token解析错误 非法的token
+            sendErrorMsg(response, "身份验证失败，请重新登录");
+        } catch (JwtException ex) {
+            // 未知的其他错误
+            sendErrorMsg(response, "身份验证异常，请重新登录");
+
+        }
+        if (claims == null) {
             return false;
         }
         String userId = claims.getId();
@@ -58,22 +62,21 @@ public class LoginInterceptor implements HandlerInterceptor {
         Date expirationTime = claims.getExpiration();
         User user = userMapper.selectByUsername(username);
         Date now = new Date();
-        if (user.getUserId().toString().equals(userId) && issuer.equals(Const.TOKEN_ISSUER) && now.before(expirationTime))
-        {
+        if (user.getUserId().toString().equals(userId) && issuer.equals(Const.TOKEN_ISSUER) && now.before(expirationTime)) {
             return true;
-        } else{
-            sendErrorMsg(response);
+        } else {
+            sendErrorMsg(response, "身份验证失败，请重新登录");
             return false;
         }
     }
 
-    private void sendErrorMsg(HttpServletResponse response) {
+    private void sendErrorMsg(HttpServletResponse response, String msg) {
         response.reset();
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("application/json;charset=utf-8");
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
-        String responseContent = JSONObject.toJSONString(ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "身份已过期，请重新登录"));
+        String responseContent = JSONObject.toJSONString(ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), msg));
         System.out.println(responseContent);
         try {
             PrintWriter pw = response.getWriter();
