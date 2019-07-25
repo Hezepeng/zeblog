@@ -12,7 +12,7 @@ public interface UserService {
 
     ServerResponse<User> getUserInfo(HttpServletRequest request);
 
-    ServerResponse<List<User>> getAllUsers();
+    ServerResponse<List<User>> getAllUsers(HttpServletRequest request);
 
     ServerResponse<Map<String, String>> login(String username, String password);
 
@@ -22,5 +22,6 @@ public interface UserService {
 
     ServerResponse updateUser(User user);
 
+    ServerResponse checkPassword(HttpServletRequest request,String password);
 
 }

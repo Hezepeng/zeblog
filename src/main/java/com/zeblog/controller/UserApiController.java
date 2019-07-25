@@ -2,10 +2,12 @@ package com.zeblog.controller;
 
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.User;
+import com.zeblog.interceptor.AdminInterceptor;
 import com.zeblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -41,14 +43,29 @@ public class UserApiController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    @AdminInterceptor
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
     public ServerResponse delete(HttpSession session, String username) {
         return userService.deleteUser(session, username);
     }
 
     @ResponseBody
-    @RequestMapping(value = "getUserInfo", method = RequestMethod.GET)
-    public ServerResponse getUserInfo(HttpServletRequest request) {
+    @RequestMapping(value = "info", method = RequestMethod.GET)
+    public ServerResponse info(HttpServletRequest request) {
         return userService.getUserInfo(request);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @AdminInterceptor
+    public ServerResponse list(HttpServletRequest request) {
+        return userService.getAllUsers(request);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "check", method = RequestMethod.POST)
+    public ServerResponse checkPassword(HttpServletRequest request,@RequestBody User user) {
+        return userService.checkPassword(request, user.getPassword());
+    }
+
 }

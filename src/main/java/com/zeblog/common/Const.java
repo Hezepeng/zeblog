@@ -27,6 +27,14 @@ public class Const {
      */
     public static final String TOKEN_SECRET = "zeblog";
 
+    /**
+     * token 颁发者
+     */
     public static final String TOKEN_ISSUER = "zeblog";
+
+    /**
+     * Headers中储存Token信息的字段名
+     */
+    public static final String TOKEN_HEADER_NAME = "X-Token";
 
 }

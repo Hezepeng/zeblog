@@ -48,4 +48,20 @@ public class TokenUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    public static Integer getUserId(String token){
+        Claims claims=Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(Const.TOKEN_SECRET))
+                .parseClaimsJws(token)
+                .getBody();
+        return Integer.valueOf(claims.getId());
+    }
+
+    public static String getUsername(String token){
+        Claims claims=Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(Const.TOKEN_SECRET))
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
 }

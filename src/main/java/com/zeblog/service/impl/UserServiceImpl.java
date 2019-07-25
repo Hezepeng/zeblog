@@ -7,16 +7,11 @@ import com.zeblog.entity.User;
 import com.zeblog.service.UserService;
 import com.zeblog.util.MD5Util;
 import com.zeblog.util.TokenUtil;
-import com.zeblog.util.timestampUtil;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.JodaTimePermission;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
-import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -24,6 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author hezepeng
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -31,14 +29,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerResponse<User> getUserInfo(HttpServletRequest request) {
-        String token = request.getHeader("X-Token");
+        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
         Claims claims = TokenUtil.parseToken(token);
         Integer userId = Integer.valueOf(claims.getId());
-        return ServerResponse.createBySuccess(userMapper.selectByPrimaryKey(userId));
+        User user=userMapper.selectByPrimaryKey(userId);
+        user.setPassword("");
+        return ServerResponse.createBySuccess();
     }
 
     @Override
-    public ServerResponse<List<User>> getAllUsers() {
+    public ServerResponse<List<User>> getAllUsers(HttpServletRequest request) {
         return ServerResponse.createBySuccess(userMapper.selectAll());
     }
 
@@ -86,9 +86,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public ServerResponse deleteUser(HttpSession session, String username) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if (!user.getRole().equals(Const.ADMIN_ROLE)) {
-            return ServerResponse.createByErrorMessage("您没有权限进行此操作");
-        }
         if (user.getUsername().equals(username)) {
             return ServerResponse.createByErrorMessage("您无法删除自己");
         }
@@ -104,15 +101,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerResponse updateUser(User user) {
-        //如果修改密码了，则加密
-        if (user.getPassword() != null) {
-            user.setPassword(MD5Util.getMD5Upper(user.getPassword()));
-        }
+        //部分属性设置为null  防止更改
+        user.setPassword(null);
+        user.setLoginTimes(null);
+        user.setCreateTime(null);
+        user.setRole(null);
+        user.setLastLoginTime(null);
         int effectRow = userMapper.updateByUsernameSelective(user);
         if (effectRow == 0) {
             return ServerResponse.createByErrorMessage("信息修改失败");
         }
         return ServerResponse.createBySuccessMessage("信息修改成功");
+    }
+
+    @Override
+    public ServerResponse checkPassword(HttpServletRequest request, String password) {
+        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
+        String username = TokenUtil.getUsername(token);
+        System.out.println(password);
+        password = MD5Util.getMD5Upper(password);
+        User user = userMapper.selectByUsernameAndPassword(username, password);
+        if (user != null) {
+            return ServerResponse.createBySuccess("密码验证成功");
+        }
+        return ServerResponse.createByErrorMessage("旧密码验证失败");
     }
 
     private boolean checkUsernameExist(String username) {
