@@ -1,5 +1,8 @@
 package com.zeblog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Article {
@@ -7,15 +10,26 @@ public class Article {
 
     private String title;
 
-    private String author;
+    private Integer authorId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+
+    private String originalType;
+
+    private String markdownContent;
+
+    private String htmlContent;
+
+    private String markdownCatalog;
+
+    private String htmlCatalog;
 
     private Integer readTimes;
 
-    private Boolean isDelete;
+    private Integer thumbsUpTimes;
 
-    private String content;
+    private Boolean isDelete;
 
     public Integer getId() {
         return id;
@@ -33,20 +47,61 @@ public class Article {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getAuthor() {
-        return author;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author == null ? null : author.trim();
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getOriginalType() {
+        return originalType;
+    }
+
+    public void setOriginalType(String originalType) {
+        this.originalType = originalType == null ? null : originalType.trim();
+    }
+
+    public String getMarkdownContent() {
+        return markdownContent;
+    }
+
+    public void setMarkdownContent(String markdownContent) {
+        this.markdownContent = markdownContent == null ? null : markdownContent.trim();
+    }
+
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent == null ? null : htmlContent.trim();
+    }
+
+    public String getMarkdownCatalog() {
+        return markdownCatalog;
+    }
+
+    public void setMarkdownCatalog(String markdownCatalog) {
+        this.markdownCatalog = markdownCatalog == null ? null : markdownCatalog.trim();
+    }
+
+    public String getHtmlCatalog() {
+        return htmlCatalog;
+    }
+
+    public void setHtmlCatalog(String htmlCatalog) {
+        this.htmlCatalog = htmlCatalog == null ? null : htmlCatalog.trim();
     }
 
     public Integer getReadTimes() {
@@ -57,19 +112,19 @@ public class Article {
         this.readTimes = readTimes;
     }
 
+    public Integer getThumbsUpTimes() {
+        return thumbsUpTimes;
+    }
+
+    public void setThumbsUpTimes(Integer thumbsUpTimes) {
+        this.thumbsUpTimes = thumbsUpTimes;
+    }
+
     public Boolean getIsDelete() {
         return isDelete;
     }
 
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 }

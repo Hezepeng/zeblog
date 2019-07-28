@@ -44,20 +44,20 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--对应数据库表名，多个表，请复制指定 -->
-        <table tableName="user" domainObjectName="User"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"
-               enableInsert="true"
-               enableSelectByPrimaryKey="true"
-               selectByPrimaryKeyQueryId="true">
-            <property name="useActualColumnNames" value="true"/>
-<!--            <columnOverride column="Class" property="stuClass">-->
-<!--                &lt;!&ndash; 使用property属性来指定列要生成的属性名称 &ndash;&gt;-->
-<!--            </columnOverride>-->
-        </table>
+<!--        <table tableName="user" domainObjectName="User"-->
+<!--               enableCountByExample="true"-->
+<!--               enableUpdateByExample="true"-->
+<!--               enableDeleteByExample="true"-->
+<!--               enableSelectByExample="true"-->
+<!--               selectByExampleQueryId="true"-->
+<!--               enableInsert="true"-->
+<!--               enableSelectByPrimaryKey="true"-->
+<!--               selectByPrimaryKeyQueryId="true">-->
+<!--            <property name="useActualColumnNames" value="true"/>-->
+<!--&lt;!&ndash;            <columnOverride column="Class" property="stuClass">&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash; 使用property属性来指定列要生成的属性名称 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            </columnOverride>&ndash;&gt;-->
+<!--        </table>-->
         <table tableName="article" domainObjectName="Article"
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -68,6 +68,10 @@
                enableSelectByPrimaryKey="true"
                selectByPrimaryKeyQueryId="true">
             <property name="useActualColumnNames" value="true"/>
+            <columnOverride column="markdownContent" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="htmlContent" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="markdownCatalog" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <columnOverride column="htmlCatalog" javaType="java.lang.String" jdbcType="VARCHAR" />
             <!--            <columnOverride column="Class" property="stuClass">-->
             <!--                &lt;!&ndash; 使用property属性来指定列要生成的属性名称 &ndash;&gt;-->
             <!--            </columnOverride>-->
