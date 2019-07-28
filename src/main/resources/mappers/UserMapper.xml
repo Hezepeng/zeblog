@@ -86,9 +86,9 @@
   </select>
     <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
     select  'true' as QUERYID,UserId, Username, Password, Nickname, Name, Phone, Email,
-    CreateTime, LoginTimes, LastLoginTime, Role, Avatar, Qq, Wechat from user where username = #{username}
+    CreateTime, LoginTimes, LastLoginTime, Role, Avatar, Qq, Wechat from user where Username = #{username}
   </select>
     <select id="selectByUsernameAndPassword" resultMap="BaseResultMap" parameterType="map">
-    select * from user where username = #{username} and password = #{password}
+    select * from user where Username = #{username} and Password = #{password}
   </select>
 </mapper>

@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
         String token = request.getHeader(Const.TOKEN_HEADER_NAME);
         Claims claims = TokenUtil.parseToken(token);
         Integer userId = Integer.valueOf(claims.getId());
-        User user=userMapper.selectByPrimaryKey(userId);
+        User user = userMapper.selectByPrimaryKey(userId);
         user.setPassword("");
-        return ServerResponse.createBySuccess();
+        return ServerResponse.createBySuccess(user);
     }
 
     @Override
@@ -79,13 +79,14 @@ public class UserServiceImpl implements UserService {
         if (effectRow == 0) {
             return ServerResponse.createByErrorMessage("注册失败");
         }
-        return ServerResponse.createBySuccess("注册成功", user);
+        return ServerResponse.createBySuccess("注册用户成功", user);
 
     }
 
     @Override
-    public ServerResponse deleteUser(HttpSession session, String username) {
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse deleteUser(HttpServletRequest request, String username) {
+        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
+        User user = userMapper.selectByUsername(TokenUtil.getUsername(token));
         if (user.getUsername().equals(username)) {
             return ServerResponse.createByErrorMessage("您无法删除自己");
         }
@@ -94,9 +95,9 @@ public class UserServiceImpl implements UserService {
         }
         int effectRow = userMapper.deleteByUsername(username);
         if (effectRow == 0) {
-            return ServerResponse.createByErrorMessage("删除失败");
+            return ServerResponse.createByErrorMessage("删除用户失败");
         }
-        return ServerResponse.createBySuccessMessage("删除成功");
+        return ServerResponse.createBySuccessMessage("删除用户成功");
     }
 
     @Override
@@ -118,13 +119,20 @@ public class UserServiceImpl implements UserService {
     public ServerResponse checkPassword(HttpServletRequest request, String password) {
         String token = request.getHeader(Const.TOKEN_HEADER_NAME);
         String username = TokenUtil.getUsername(token);
-        System.out.println(password);
         password = MD5Util.getMD5Upper(password);
         User user = userMapper.selectByUsernameAndPassword(username, password);
         if (user != null) {
             return ServerResponse.createBySuccess("密码验证成功");
         }
         return ServerResponse.createByErrorMessage("旧密码验证失败");
+    }
+
+    @Override
+    public ServerResponse checkUsername(String username) {
+        if (checkUsernameExist(username)) {
+            return ServerResponse.createByErrorMessage("用户名已被注册");
+        }
+        return ServerResponse.createBySuccess("用户名可用");
     }
 
     private boolean checkUsernameExist(String username) {

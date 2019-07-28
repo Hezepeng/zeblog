@@ -1,5 +1,7 @@
 package com.zeblog.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.User;
 import com.zeblog.interceptor.AdminInterceptor;
@@ -26,7 +28,7 @@ public class UserApiController {
 
     @ResponseBody
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ServerResponse<Map<String, String>> login(@RequestBody User user, HttpSession httpSession) {
+    public ServerResponse<Map<String, String>> login(@RequestBody User user) {
         return userService.login(user.getUsername(), user.getPassword());
     }
 
@@ -45,8 +47,8 @@ public class UserApiController {
     @ResponseBody
     @AdminInterceptor
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public ServerResponse delete(HttpSession session, String username) {
-        return userService.deleteUser(session, username);
+    public ServerResponse delete(HttpServletRequest request,@RequestBody User user) {
+        return userService.deleteUser(request, user.getUsername());
     }
 
     @ResponseBody
@@ -63,9 +65,15 @@ public class UserApiController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "check", method = RequestMethod.POST)
-    public ServerResponse checkPassword(HttpServletRequest request,@RequestBody User user) {
+    @RequestMapping(value = "checkPassword", method = RequestMethod.POST)
+    public ServerResponse checkPassword(HttpServletRequest request, @RequestBody User user) {
         return userService.checkPassword(request, user.getPassword());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "checkUsername", method = RequestMethod.POST)
+    public ServerResponse checkUsername(HttpServletRequest request, String username) {
+        return userService.checkPassword(request, username);
     }
 
 }

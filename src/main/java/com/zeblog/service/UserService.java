@@ -18,10 +18,13 @@ public interface UserService {
 
     ServerResponse register(User user);
 
-    ServerResponse deleteUser(HttpSession session, String username);
+    ServerResponse deleteUser(HttpServletRequest request, String username);
 
     ServerResponse updateUser(User user);
 
     ServerResponse checkPassword(HttpServletRequest request,String password);
+
+    ServerResponse checkUsername(String username);
+
 
 }
