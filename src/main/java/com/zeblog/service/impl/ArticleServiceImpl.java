@@ -1,5 +1,6 @@
 package com.zeblog.service.impl;
 
+import com.zeblog.bo.ArticleBo;
 import com.zeblog.common.Const;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.ArticleMapper;
@@ -29,15 +30,15 @@ public class ArticleServiceImpl implements ArticleService {
     ArticleMapper articleMapper;
 
     @Override
-    public ServerResponse<List<Article>> getAllArticles(HttpServletRequest request) {
+    public ServerResponse<List<ArticleBo>> getAllArticles(HttpServletRequest request) {
         String token = request.getHeader(Const.TOKEN_HEADER_NAME);
         Integer userId =TokenUtil.getUserId(token);
-        return ServerResponse.createBySuccess(articleMapper.selectByAuthorId(userId));
+        return ServerResponse.createBySuccess(articleMapper.selectAllArticleByAuthorId(userId));
     }
 
     @Override
-    public ServerResponse<Article> getArticleById(Integer articleId) {
-        return ServerResponse.createBySuccess(articleMapper.selectByPrimaryKey(articleId));
+    public ServerResponse<ArticleBo> getArticleById(Integer articleId) {
+        return ServerResponse.createBySuccess(articleMapper.selectArticleByArticleId(articleId));
     }
 
     @Override

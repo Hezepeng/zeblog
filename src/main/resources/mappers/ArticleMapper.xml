@@ -2,65 +2,134 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zeblog.dao.ArticleMapper">
   <resultMap id="BaseResultMap" type="com.zeblog.entity.Article">
-    <id column="Id" jdbcType="INTEGER" property="id" />
+    <id column="ArticleId" jdbcType="INTEGER" property="articleId" />
     <result column="Title" jdbcType="VARCHAR" property="title" />
     <result column="AuthorId" jdbcType="INTEGER" property="authorId" />
     <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="OriginalType" jdbcType="VARCHAR" property="originalType" />
+    <result column="CodeStyle" jdbcType="VARCHAR" property="codeStyle" />
     <result column="MarkdownContent" jdbcType="VARCHAR" property="markdownContent" />
     <result column="HtmlContent" jdbcType="VARCHAR" property="htmlContent" />
     <result column="MarkdownCatalog" jdbcType="VARCHAR" property="markdownCatalog" />
     <result column="HtmlCatalog" jdbcType="VARCHAR" property="htmlCatalog" />
     <result column="ReadTimes" jdbcType="INTEGER" property="readTimes" />
     <result column="ThumbsUpTimes" jdbcType="INTEGER" property="thumbsUpTimes" />
+    <result column="IsTop" jdbcType="BIT" property="isTop" />
+    <result column="TopRank" jdbcType="INTEGER" property="topRank" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
+  <!--员工关联查询结果映射-->
+  <resultMap id="ArticleBoResultMap" type="com.zeblog.bo.ArticleBo">
+    <id column="ArticleId" jdbcType="INTEGER" property="articleId" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="AuthorId" jdbcType="INTEGER" property="authorId" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="OriginalType" jdbcType="VARCHAR" property="originalType" />
+    <result column="CodeStyle" jdbcType="VARCHAR" property="codeStyle" />
+    <result column="MarkdownContent" jdbcType="VARCHAR" property="markdownContent" />
+    <result column="HtmlContent" jdbcType="VARCHAR" property="htmlContent" />
+    <result column="MarkdownCatalog" jdbcType="VARCHAR" property="markdownCatalog" />
+    <result column="HtmlCatalog" jdbcType="VARCHAR" property="htmlCatalog" />
+    <result column="ReadTimes" jdbcType="INTEGER" property="readTimes" />
+    <result column="ThumbsUpTimes" jdbcType="INTEGER" property="thumbsUpTimes" />
+    <result column="IsTop" jdbcType="BIT" property="isTop" />
+    <result column="TopRank" jdbcType="INTEGER" property="topRank" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <!--映射关系，指定属性与属性的类型-->
+    <association property="author" javaType="com.zeblog.entity.User">
+      <id property="userId" jdbcType="INTEGER" column="authorId"/>
+      <result column="Username" jdbcType="VARCHAR" property="username"/>
+      <result column="Password" jdbcType="VARCHAR" property="password"/>
+      <result column="Nickname" jdbcType="VARCHAR" property="nickname"/>
+      <result column="Name" jdbcType="VARCHAR" property="name"/>
+      <result column="Phone" jdbcType="VARCHAR" property="phone"/>
+      <result column="Email" jdbcType="VARCHAR" property="email"/>
+      <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+      <result column="LoginTimes" jdbcType="INTEGER" property="loginTimes"/>
+      <result column="LastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime"/>
+      <result column="Role" jdbcType="VARCHAR" property="role"/>
+      <result column="Avatar" jdbcType="VARCHAR" property="avatar"/>
+      <result column="Qq" jdbcType="VARCHAR" property="qq"/>
+      <result column="Wechat" jdbcType="VARCHAR" property="wechat"/>
+    </association>
+  </resultMap>
+  <sql id="totalColumn">
+      ArticleId, Title, AuthorId,
+      CreateTime, UpdateTime, OriginalType,
+      CodeStyle, MarkdownContent, HtmlContent,
+      MarkdownCatalog, HtmlCatalog, ReadTimes,
+      ThumbsUpTimes, IsTop, TopRank,
+      IsDelete
+  </sql>
+  <sql id="ColumnSimpleUserWithText">
+      a.ArticleId, a.Title, a.AuthorId,
+      a.CreateTime, a.UpdateTime, a.OriginalType,
+      a.CodeStyle, a.MarkdownContent, a.HtmlContent,
+      a.MarkdownCatalog, a.HtmlCatalog, a.ReadTimes,
+      a.ThumbsUpTimes, a.IsTop, a.TopRank,
+      a.IsDelete, u.UserId, u.Username,
+      u.Nickname, u.Role, u.Avatar
+  </sql>
+  <sql id="columnSimpleUserWithoutText">
+    a.ArticleId, a.Title, a.AuthorId,
+      a.CreateTime, a.UpdateTime, a.OriginalType,
+      a.CodeStyle, a.ReadTimes,
+      a.ThumbsUpTimes, a.IsTop, a.TopRank,
+      a.IsDelete, u.UserId, u.Username,
+      u.Nickname, u.Role, u.Avatar
+  </sql>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article
-    where Id = #{id,jdbcType=INTEGER}
+    where ArticleId = #{articleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zeblog.entity.Article">
-    insert into article (Id, Title, AuthorId, 
-      CreateTime, OriginalType, MarkdownContent, 
-      HtmlContent, MarkdownCatalog, HtmlCatalog, 
-      ReadTimes, ThumbsUpTimes, IsDelete
-      )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{originalType,jdbcType=VARCHAR}, #{markdownContent,jdbcType=VARCHAR}, 
-      #{htmlContent,jdbcType=VARCHAR}, #{markdownCatalog,jdbcType=VARCHAR}, #{htmlCatalog,jdbcType=VARCHAR}, 
-      #{readTimes,jdbcType=INTEGER}, #{thumbsUpTimes,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
-      )
+  <insert id="insert" parameterType="com.zeblog.entity.Article" useGeneratedKeys="true" keyProperty="ArticleId">
+    insert into article (<include refid="totalColumn"/>)
+    values (#{articleId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{originalType,jdbcType=VARCHAR}, 
+      #{codeStyle,jdbcType=VARCHAR}, #{markdownContent,jdbcType=VARCHAR}, #{htmlContent,jdbcType=VARCHAR}, 
+      #{markdownCatalog,jdbcType=VARCHAR}, #{htmlCatalog,jdbcType=VARCHAR}, #{readTimes,jdbcType=INTEGER}, 
+      #{thumbsUpTimes,jdbcType=INTEGER}, #{isTop,jdbcType=BIT}, #{topRank,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=BIT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Article">
     update article
     set Title = #{title,jdbcType=VARCHAR},
       AuthorId = #{authorId,jdbcType=INTEGER},
       CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
       OriginalType = #{originalType,jdbcType=VARCHAR},
+      CodeStyle = #{codeStyle,jdbcType=VARCHAR},
       MarkdownContent = #{markdownContent,jdbcType=VARCHAR},
       HtmlContent = #{htmlContent,jdbcType=VARCHAR},
       MarkdownCatalog = #{markdownCatalog,jdbcType=VARCHAR},
       HtmlCatalog = #{htmlCatalog,jdbcType=VARCHAR},
       ReadTimes = #{readTimes,jdbcType=INTEGER},
       ThumbsUpTimes = #{thumbsUpTimes,jdbcType=INTEGER},
+      IsTop = #{isTop,jdbcType=BIT},
+      TopRank = #{topRank,jdbcType=INTEGER},
       IsDelete = #{isDelete,jdbcType=BIT}
-    where Id = #{id,jdbcType=INTEGER}
+    where ArticleId = #{articleId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 'true' as QUERYID,Id, Title, AuthorId, CreateTime, OriginalType, MarkdownContent,
-    HtmlContent, MarkdownCatalog, HtmlCatalog, ReadTimes, ThumbsUpTimes, IsDelete
-    from article
-    where Id = #{id,jdbcType=INTEGER}
+  <select id="selectSimpleArticleByArticleId" parameterType="java.lang.Integer" resultMap="ArticleBoResultMap">
+    select 'true' as QUERYID,<include refid="columnSimpleUserWithoutText"></include>
+    from article a inner join user u on AuthorId = u.UserId
+    where ArticleId = #{articleId,jdbcType=INTEGER}
   </select>
-  <select id="selectByAuthorId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 'true' as QUERYID,Id, Title, AuthorId, CreateTime, OriginalType, MarkdownContent,
-    HtmlContent, MarkdownCatalog, HtmlCatalog, ReadTimes, ThumbsUpTimes, IsDelete
-    from article
+  <select id="selectArticleByArticleId" parameterType="java.lang.Integer" resultMap="ArticleBoResultMap">
+    select 'true' as QUERYID,<include refid="ColumnSimpleUserWithText"></include>
+    from article a inner join user u on a.AuthorId = u.UserId
+    where ArticleId = #{articleId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllArticle" resultMap="ArticleBoResultMap">
+    select <include refid="columnSimpleUserWithoutText"></include>
+    from article a inner join user u on a.AuthorId = u.UserId
+  </select>
+  <select id="selectAllArticleByAuthorId" parameterType="java.lang.Integer" resultMap="ArticleBoResultMap">
+    select 'true' as QUERYID,<include refid="columnSimpleUserWithoutText"></include>
+    from article a inner join user u on a.AuthorId = u.UserId
     where AuthorId = #{authorId,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select Id, Title, AuthorId, CreateTime, OriginalType, MarkdownContent, HtmlContent, 
-    MarkdownCatalog, HtmlCatalog, ReadTimes, ThumbsUpTimes, IsDelete
-    from article
   </select>
 </mapper>

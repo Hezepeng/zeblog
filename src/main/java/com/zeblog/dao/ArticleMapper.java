@@ -1,20 +1,21 @@
 package com.zeblog.dao;
 
+import com.zeblog.bo.ArticleBo;
 import com.zeblog.entity.Article;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 public interface ArticleMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer articleId);
 
     int insert(Article record);
 
-    Article selectByPrimaryKey(Integer id);
+    ArticleBo selectSimpleArticleByArticleId(Integer articleId);
 
-    List<Article> selectAll();
+    ArticleBo selectArticleByArticleId(Integer articleId);
 
-    List<Article> selectByAuthorId(Integer authorId);
+    List<ArticleBo> selectAllArticleByAuthorId(Integer authorId);
 
-    int updateByPrimaryKey(Article record);
+    List<ArticleBo> selectAllArticle();
+
+    int updateByPrimaryKey(Article article);
 }

@@ -1,11 +1,20 @@
-package com.zeblog.entity;
+package com.zeblog.bo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zeblog.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class Article {
+/**
+ * @author: Hezepeng
+ * @email: hezepeng96@foxmail.com
+ * @date: 2019-07-29 18:40
+ */
+public class ArticleBo {
+
+    private User author;
+
     private Integer articleId;
 
     private String title;
@@ -168,5 +177,13 @@ public class Article {
 
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

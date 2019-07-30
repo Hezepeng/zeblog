@@ -1,5 +1,6 @@
 package com.zeblog.service;
 
+import com.zeblog.bo.ArticleBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.Article;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,10 +15,9 @@ import java.util.Map;
  * @date: 2019-07-28 23:01
  */
 public interface ArticleService {
-    ServerResponse<List<Article>> getAllArticles(HttpServletRequest request);
+    ServerResponse<List<ArticleBo>> getAllArticles(HttpServletRequest request);
 
-    ServerResponse<Article> getArticleById(Integer articleId);
-
+    ServerResponse<ArticleBo> getArticleById(Integer articleId);
 
     ServerResponse<Map<String ,String>> uploadImage(HttpServletRequest request, MultipartFile file);
 
