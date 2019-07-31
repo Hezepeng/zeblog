@@ -40,6 +40,8 @@ public class Article {
 
     private Boolean isDelete;
 
+    private Integer state;
+
     public Integer getArticleId() {
         return articleId;
     }
@@ -168,5 +170,13 @@ public class Article {
 
     public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

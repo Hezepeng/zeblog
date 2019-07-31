@@ -1,6 +1,7 @@
 package com.zeblog.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ public class User {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private String nickname;

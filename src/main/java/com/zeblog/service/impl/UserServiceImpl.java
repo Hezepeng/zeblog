@@ -1,13 +1,11 @@
 package com.zeblog.service.impl;
 
-import com.zeblog.common.Const;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.UserMapper;
 import com.zeblog.entity.User;
 import com.zeblog.service.UserService;
 import com.zeblog.util.MD5Util;
 import com.zeblog.util.TokenUtil;
-import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerResponse<User> getUserInfo(HttpServletRequest request) {
-        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
-        Claims claims = TokenUtil.parseToken(token);
-        Integer userId = Integer.valueOf(claims.getId());
+        Integer userId = TokenUtil.getUserIdFromRequest(request);
         User user = userMapper.selectByPrimaryKey(userId);
         user.setPassword("");
         return ServerResponse.createBySuccess(user);
@@ -85,8 +81,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerResponse deleteUser(HttpServletRequest request, String username) {
-        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
-        User user = userMapper.selectByUsername(TokenUtil.getUsername(token));
+        User user = userMapper.selectByUsername(TokenUtil.getUsernameByRequest(request));
         if (user.getUsername().equals(username)) {
             return ServerResponse.createByErrorMessage("您无法删除自己");
         }
@@ -117,8 +112,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerResponse checkPassword(HttpServletRequest request, String password) {
-        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
-        String username = TokenUtil.getUsername(token);
+        String username = TokenUtil.getUsernameByRequest(request);
         password = MD5Util.getMD5Upper(password);
         User user = userMapper.selectByUsernameAndPassword(username, password);
         if (user != null) {

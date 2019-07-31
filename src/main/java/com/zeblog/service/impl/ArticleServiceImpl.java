@@ -31,8 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ServerResponse<List<ArticleBo>> getAllArticles(HttpServletRequest request) {
-        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
-        Integer userId =TokenUtil.getUserId(token);
+        Integer userId=TokenUtil.getUserIdFromRequest(request);
         return ServerResponse.createBySuccess(articleMapper.selectAllArticleByAuthorId(userId));
     }
 
@@ -77,8 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ServerResponse addArticle(HttpServletRequest request, Article article) {
-        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
-        Integer userId =TokenUtil.getUserId(token);
+        Integer userId=TokenUtil.getUserIdFromRequest(request);
         if(article!=null){
             article.setAuthorId(userId);
             article.setCreateTime(new Date());

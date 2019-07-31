@@ -1,10 +1,13 @@
 package com.zeblog.bo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zeblog.entity.Category;
+import com.zeblog.entity.Tag;
 import com.zeblog.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: Hezepeng
@@ -14,6 +17,10 @@ import java.util.Date;
 public class ArticleBo {
 
     private User author;
+
+    private List<Tag> tags;
+
+    private List<Category> categories;
 
     private Integer articleId;
 
@@ -48,6 +55,8 @@ public class ArticleBo {
     private Integer topRank;
 
     private Boolean isDelete;
+
+    private Integer state;
 
     public Integer getArticleId() {
         return articleId;
@@ -185,5 +194,29 @@ public class ArticleBo {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

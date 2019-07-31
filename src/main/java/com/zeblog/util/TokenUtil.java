@@ -7,6 +7,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.faces.component.html.HtmlPanelGrid;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
@@ -34,34 +36,41 @@ public class TokenUtil {
         Key signatureKey = new SecretKeySpec(secretBytes, signatureAlgorithm.getJcaName());
 
         JwtBuilder jwtBuilder = Jwts.builder().setId(id)
-                                            .setIssuedAt(now)
-                                            .setSubject(subject)
-                                            .setIssuer(Const.TOKEN_ISSUER)
-                                            .setExpiration(exp)
-                                            .signWith(signatureAlgorithm, signatureKey);
+                .setIssuedAt(now)
+                .setSubject(subject)
+                .setIssuer(Const.TOKEN_ISSUER)
+                .setExpiration(exp)
+                .signWith(signatureAlgorithm, signatureKey);
         return jwtBuilder.compact();
     }
 
-    public static Claims parseToken(String token){
+    public static Claims parseToken(String token) {
         return Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(Const.TOKEN_SECRET))
                 .parseClaimsJws(token)
                 .getBody();
     }
 
-    public static Integer getUserId(String token){
-        Claims claims=Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(Const.TOKEN_SECRET))
-                .parseClaimsJws(token)
-                .getBody();
+    public static Integer getUserId(String token) {
+        Claims claims = parseToken(token);
         return Integer.valueOf(claims.getId());
     }
 
-    public static String getUsername(String token){
-        Claims claims=Jwts.parser()
+    public static String getUsername(String token) {
+        Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(Const.TOKEN_SECRET))
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+    }
+
+    public static Integer getUserIdFromRequest(HttpServletRequest request) {
+        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
+        return getUserId(token);
+    }
+
+    public static String getUsernameByRequest(HttpServletRequest request) {
+        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
+        return getUsername(token);
     }
 }

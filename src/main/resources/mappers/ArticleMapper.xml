@@ -18,6 +18,7 @@
     <result column="IsTop" jdbcType="BIT" property="isTop" />
     <result column="TopRank" jdbcType="INTEGER" property="topRank" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="State" jdbcType="INTEGER" property="state" />
   </resultMap>
   <!--员工关联查询结果映射-->
   <resultMap id="ArticleBoResultMap" type="com.zeblog.bo.ArticleBo">
@@ -37,6 +38,7 @@
     <result column="IsTop" jdbcType="BIT" property="isTop" />
     <result column="TopRank" jdbcType="INTEGER" property="topRank" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <result column="State" jdbcType="INTEGER" property="state" />
     <!--映射关系，指定属性与属性的类型-->
     <association property="author" javaType="com.zeblog.entity.User">
       <id property="userId" jdbcType="INTEGER" column="authorId"/>
@@ -61,7 +63,7 @@
       CodeStyle, MarkdownContent, HtmlContent,
       MarkdownCatalog, HtmlCatalog, ReadTimes,
       ThumbsUpTimes, IsTop, TopRank,
-      IsDelete
+      IsDelete, State
   </sql>
   <sql id="ColumnSimpleUserWithText">
       a.ArticleId, a.Title, a.AuthorId,
@@ -69,7 +71,7 @@
       a.CodeStyle, a.MarkdownContent, a.HtmlContent,
       a.MarkdownCatalog, a.HtmlCatalog, a.ReadTimes,
       a.ThumbsUpTimes, a.IsTop, a.TopRank,
-      a.IsDelete, u.UserId, u.Username,
+      a.IsDelete, a.State, u.UserId, u.Username,
       u.Nickname, u.Role, u.Avatar
   </sql>
   <sql id="columnSimpleUserWithoutText">
@@ -77,7 +79,7 @@
       a.CreateTime, a.UpdateTime, a.OriginalType,
       a.CodeStyle, a.ReadTimes,
       a.ThumbsUpTimes, a.IsTop, a.TopRank,
-      a.IsDelete, u.UserId, u.Username,
+      a.IsDelete, a.State, u.UserId, u.Username,
       u.Nickname, u.Role, u.Avatar
   </sql>
 
@@ -92,7 +94,7 @@
       #{codeStyle,jdbcType=VARCHAR}, #{markdownContent,jdbcType=VARCHAR}, #{htmlContent,jdbcType=VARCHAR}, 
       #{markdownCatalog,jdbcType=VARCHAR}, #{htmlCatalog,jdbcType=VARCHAR}, #{readTimes,jdbcType=INTEGER}, 
       #{thumbsUpTimes,jdbcType=INTEGER}, #{isTop,jdbcType=BIT}, #{topRank,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=BIT})
+      #{isDelete,jdbcType=BIT}, #{state,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Article">
     update article
@@ -110,7 +112,8 @@
       ThumbsUpTimes = #{thumbsUpTimes,jdbcType=INTEGER},
       IsTop = #{isTop,jdbcType=BIT},
       TopRank = #{topRank,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=BIT}
+      IsDelete = #{isDelete,jdbcType=BIT},
+      State = #{state,jdbcType=INTEGER}
     where ArticleId = #{articleId,jdbcType=INTEGER}
   </update>
   <select id="selectSimpleArticleByArticleId" parameterType="java.lang.Integer" resultMap="ArticleBoResultMap">

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeblog.dao.CategoryMapper">
+  <resultMap id="BaseResultMap" type="com.zeblog.entity.Category">
+    <id column="CategoryId" jdbcType="INTEGER" property="categoryId" />
+    <result column="UserId" jdbcType="INTEGER" property="userId" />
+    <result column="CategoryName" jdbcType="VARCHAR" property="categoryName" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from category
+    where CategoryId = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zeblog.entity.Category">
+    insert into category (CategoryId, UserId, CategoryName, 
+      CreateTime)
+    values (#{categoryId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Category">
+    update category
+    set UserId = #{userId,jdbcType=INTEGER},
+      CategoryName = #{categoryName,jdbcType=VARCHAR},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP}
+    where CategoryId = #{categoryId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,CategoryId, UserId, CategoryName, CreateTime
+    from category
+    where CategoryId = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserIdAndCategoryName" parameterType="com.zeblog.entity.Category" resultMap="BaseResultMap">
+    select 'true' as QUERYID,CategoryId, UserId, CategoryName, CreateTime
+    from category
+    where UserId = #{userId,jdbcType=INTEGER} and CategoryName = #{categoryName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select CategoryId, UserId, CategoryName, CreateTime
+    from category
+  </select>
+
+  <select id="selectUserCategory" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select CategoryId, UserId, CategoryName, CreateTime
+    from category where UserId = #{userId,jdbcType=INTEGER}
+  </select>
+</mapper>
