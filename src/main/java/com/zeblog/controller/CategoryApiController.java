@@ -6,6 +6,7 @@ import com.zeblog.entity.Category;
 import com.zeblog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,5 +30,23 @@ public class CategoryApiController {
     @RequestMapping(value = "getUserCategory", method = RequestMethod.GET)
     public ServerResponse<List<Category>> getUserCategory(HttpServletRequest request){
         return categoryService.getUserCategory(request);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public ServerResponse addUserCategory(HttpServletRequest request, @RequestBody Category category){
+        return categoryService.addUserCategory(request,category);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    public ServerResponse updateUserCategory(HttpServletRequest request, @RequestBody Category category){
+        return categoryService.updateUserCategory(request,category);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    public ServerResponse deleteUserCategory(HttpServletRequest request, @RequestBody Category category){
+        return categoryService.deleteUserCategory(request,category);
     }
 }

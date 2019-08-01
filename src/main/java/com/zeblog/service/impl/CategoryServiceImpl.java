@@ -28,18 +28,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ServerResponse addCategory(HttpServletRequest request, Category category) {
-        Category exsitCategory = categoryMapper.selectByUserIdAndCategoryName(category);
-        if (exsitCategory != null) {
+    public ServerResponse addUserCategory(HttpServletRequest request, Category category) {
+        Category existCategory = categoryMapper.selectByUserIdAndCategoryName(category);
+        if (existCategory != null) {
             return ServerResponse.createByErrorMessage("该类目已存在，请勿重复添加");
         }
 
-        int effectRow = 0;
+        int effectRow;
         try {
             effectRow = categoryMapper.insert(category);
         } catch (Exception e) {
             e.printStackTrace();
-            return ServerResponse.createByErrorMessage("类目添加失败");
+            return ServerResponse.createByErrorMessage("发生异常，类目添加失败");
         }
         if (effectRow == 0) {
             return ServerResponse.createByErrorMessage("类目添加失败");
@@ -48,12 +48,42 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ServerResponse deleteCategory(HttpServletRequest request, Category category) {
-        return null;
+    public ServerResponse deleteUserCategory(HttpServletRequest request, Category category) {
+        Category existCategory = categoryMapper.selectByPrimaryKey(category.getCategoryId());
+        if (existCategory == null) {
+            return ServerResponse.createByErrorMessage("要删除的类目不存在");
+        }
+        int effectRow;
+        try {
+            effectRow = categoryMapper.deleteByPrimaryKey(category.getCategoryId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResponse.createByErrorMessage("发生异常，类目删除失败");
+        }
+        if (effectRow == 0) {
+            return ServerResponse.createByErrorMessage("类目删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
     }
 
     @Override
-    public ServerResponse updateCategory(HttpServletRequest request, Category category) {
-        return null;
+    public ServerResponse updateUserCategory(HttpServletRequest request, Category category) {
+        Category existCategory = categoryMapper.selectByPrimaryKey(category.getCategoryId());
+        if (existCategory == null) {
+            return ServerResponse.createByErrorMessage("要更新的类目不存在");
+        }
+        int effectRow;
+        try {
+            effectRow = categoryMapper.updateByPrimaryKey(category);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResponse.createByErrorMessage("发生异常，类目更新失败");
+        }
+        if (effectRow == 0) {
+            return ServerResponse.createByErrorMessage("类目更新失败");
+        }
+        return ServerResponse.createBySuccessMessage("添加成功");
+
+
     }
 }

@@ -14,9 +14,9 @@ import java.util.List;
 public interface CategoryService {
     ServerResponse<List<Category>> getUserCategory(HttpServletRequest request);
 
-    ServerResponse addCategory(HttpServletRequest request, Category category);
+    ServerResponse addUserCategory(HttpServletRequest request, Category category);
 
-    ServerResponse deleteCategory(HttpServletRequest request,Category category);
+    ServerResponse deleteUserCategory(HttpServletRequest request,Category category);
 
-    ServerResponse updateCategory(HttpServletRequest request,Category category);
+    ServerResponse updateUserCategory(HttpServletRequest request,Category category);
 }
