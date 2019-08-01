@@ -1,17 +1,24 @@
 package com.zeblog.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+/**
+ * @author hezepeng
+ */
 public class User {
     private Integer userId;
 
     private String username;
 
-    @JsonIgnore
+    /**
+     * 指定字段只在序列化时忽略、反序列化时保留
+     * 该注解可以让对象序列号成json过程中过滤掉Password字段，但json反序列化成对象时依旧会生成Password字段
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private String nickname;
