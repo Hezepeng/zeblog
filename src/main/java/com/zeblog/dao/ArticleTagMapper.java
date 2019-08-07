@@ -6,6 +6,9 @@ import java.util.List;
 public interface ArticleTagMapper {
     int deleteByPrimaryKey(Integer articleTagId);
 
+    int deleteByArticleId(Integer articleId);
+
+
     int insert(ArticleTag record);
 
     ArticleTag selectByPrimaryKey(Integer articleTagId);

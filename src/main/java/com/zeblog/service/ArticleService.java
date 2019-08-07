@@ -21,7 +21,10 @@ public interface ArticleService {
 
     ServerResponse<Map<String ,String>> uploadImage(HttpServletRequest request, MultipartFile file);
 
-    ServerResponse addArticle(HttpServletRequest request, Article article);
+    ServerResponse<ArticleBo> addArticle(HttpServletRequest request, ArticleBo article);
+
+    ServerResponse<ArticleBo> updateArticle(HttpServletRequest request, ArticleBo article);
+
 
 
 }

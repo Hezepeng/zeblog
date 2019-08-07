@@ -3,10 +3,11 @@ package com.zeblog.service.impl;
 import com.zeblog.bo.ArticleBo;
 import com.zeblog.common.Const;
 import com.zeblog.common.ServerResponse;
+import com.zeblog.dao.ArticleCategoryMapper;
 import com.zeblog.dao.ArticleMapper;
+import com.zeblog.dao.ArticleTagMapper;
 import com.zeblog.dao.UserMapper;
-import com.zeblog.entity.Article;
-import com.zeblog.entity.User;
+import com.zeblog.entity.*;
 import com.zeblog.service.ArticleService;
 import com.zeblog.util.TokenUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -28,10 +29,14 @@ import java.util.*;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleMapper articleMapper;
+    @Autowired
+    ArticleTagMapper articleTagMapper;
+    @Autowired
+    ArticleCategoryMapper articleCategoryMapper;
 
     @Override
     public ServerResponse<List<ArticleBo>> getAllArticles(HttpServletRequest request) {
-        Integer userId=TokenUtil.getUserIdFromRequest(request);
+        Integer userId = TokenUtil.getUserIdFromRequest(request);
         return ServerResponse.createBySuccess(articleMapper.selectAllArticleByAuthorId(userId));
     }
 
@@ -75,21 +80,61 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ServerResponse addArticle(HttpServletRequest request, Article article) {
-        Integer userId=TokenUtil.getUserIdFromRequest(request);
-        if(article!=null){
+    public ServerResponse<ArticleBo> addArticle(HttpServletRequest request, ArticleBo article) {
+        Integer userId = TokenUtil.getUserIdFromRequest(request);
+        if (article != null) {
             article.setAuthorId(userId);
             article.setCreateTime(new Date());
             article.setReadTimes(0);
             article.setThumbsUpTimes(0);
             article.setIsDelete(false);
-        }else{
+        } else {
             return ServerResponse.createByErrorMessage("未接收到文章信息");
         }
         int effectRow = articleMapper.insert(article);
+        // 保存文章标签
+        for (ArticleTag tag : article.getTags()) {
+            tag.setArticleId(article.getArticleId());
+            articleTagMapper.insert(tag);
+        }
+        // 保存文章分类
+        for (ArticleCategory articleCategory : article.getCategories()) {
+            articleCategory.setArticleId(article.getArticleId());
+            articleCategoryMapper.insert(articleCategory);
+        }
         if (effectRow == 0) {
             return ServerResponse.createByErrorMessage("发布文章失败");
         }
-        return ServerResponse.createBySuccessMessage("发布文章成功");
+        String msg = article.getState() == 0 ? "文章已保存到草稿箱" : "发布文章成功";
+        return ServerResponse.createBySuccess(msg, article);
+    }
+
+    @Override
+    public ServerResponse<ArticleBo> updateArticle(HttpServletRequest request, ArticleBo article) {
+        if (article != null) {
+            article.setUpdateTime(new Date());
+        } else {
+            return ServerResponse.createByErrorMessage("未接收到文章信息");
+        }
+        int effectRow = articleMapper.updateByPrimaryKey(article);
+        // 删除旧的的文章标签
+        articleTagMapper.deleteByArticleId(article.getArticleId());
+        // 保存新的文章标签
+        for (ArticleTag tag : article.getTags()) {
+            tag.setArticleId(article.getArticleId());
+            effectRow += articleTagMapper.insert(tag);
+        }
+        // 删除旧的文章分类
+        articleCategoryMapper.deleteByArticleId(article.getArticleId());
+        // 保存新的文章分类
+        for (ArticleCategory articleCategory : article.getCategories()) {
+            articleCategory.setArticleId(article.getArticleId());
+            effectRow += articleCategoryMapper.insert(articleCategory);
+        }
+        if (effectRow == 0) {
+            return ServerResponse.createByErrorMessage("本次更新未做任何更改");
+        }
+        String msg = article.getState() == 0 ? "文章已更新并保存到草稿箱" : "文章信息已更新";
+        return ServerResponse.createBySuccess(msg, article);
     }
 }

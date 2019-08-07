@@ -1,8 +1,8 @@
 package com.zeblog.service.impl;
 
 import com.zeblog.common.ServerResponse;
-import com.zeblog.dao.TagMapper;
-import com.zeblog.entity.Tag;
+import com.zeblog.dao.ArticleTagMapper;
+import com.zeblog.entity.ArticleTag;
 import com.zeblog.service.TagService;
 import com.zeblog.util.TokenUtil;
 import org.omg.CORBA.INTERNAL;
@@ -21,26 +21,26 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    private TagMapper tagMapper;
+    private ArticleTagMapper articleTagMapper;
 
     @Override
-    public ServerResponse<List<Tag>> getUserTag(HttpServletRequest request) {
+    public ServerResponse<List<ArticleTag>> getUserTag(HttpServletRequest request) {
         Integer userId= TokenUtil.getUserIdFromRequest(request);
-        return ServerResponse.createBySuccess(tagMapper.selectUserTag(userId));
-    }
-
-    @Override
-    public ServerResponse<Tag> addUserTag(HttpServletRequest request, Tag tag) {
         return null;
     }
 
     @Override
-    public ServerResponse deleteUserTag(HttpServletRequest request, Tag tag) {
+    public ServerResponse<ArticleTag> addUserTag(HttpServletRequest request, ArticleTag tag) {
         return null;
     }
 
     @Override
-    public ServerResponse updateUserTag(HttpServletRequest request, Tag tag) {
+    public ServerResponse deleteUserTag(HttpServletRequest request, ArticleTag tag) {
+        return null;
+    }
+
+    @Override
+    public ServerResponse updateUserTag(HttpServletRequest request, ArticleTag tag) {
         return null;
     }
 }

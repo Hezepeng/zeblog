@@ -7,7 +7,7 @@ import java.util.List;
 public interface ArticleMapper {
     int deleteByPrimaryKey(Integer articleId);
 
-    int insert(Article record);
+    int insert(ArticleBo article);
 
     ArticleBo selectSimpleArticleByArticleId(Integer articleId);
 
@@ -17,5 +17,5 @@ public interface ArticleMapper {
 
     List<ArticleBo> selectAllArticle();
 
-    int updateByPrimaryKey(Article article);
+    int updateByPrimaryKey(ArticleBo article);
 }

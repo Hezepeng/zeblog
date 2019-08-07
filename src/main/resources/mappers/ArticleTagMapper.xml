@@ -4,16 +4,20 @@
   <resultMap id="BaseResultMap" type="com.zeblog.entity.ArticleTag">
     <id column="ArticleTagId" jdbcType="INTEGER" property="articleTagId" />
     <result column="ArticleId" jdbcType="INTEGER" property="articleId" />
-    <result column="TagId" jdbcType="INTEGER" property="tagId" />
+    <result column="TagName" jdbcType="INTEGER" property="tagName" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from article_tag
     where ArticleTagId = #{articleTagId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByArticleId" parameterType="java.lang.Integer">
+    delete from article_tag
+    where ArticleId = #{articleId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.zeblog.entity.ArticleTag">
-    insert into article_tag (ArticleTagId, ArticleId, TagId
+    insert into article_tag (ArticleTagId, ArticleId, TagName
       )
-    values (#{articleTagId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}
+    values (#{articleTagId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{tagName,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.ArticleTag">
@@ -23,12 +27,12 @@
     where ArticleTagId = #{articleTagId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 'true' as QUERYID,ArticleTagId, ArticleId, TagId
+    select 'true' as QUERYID,ArticleTagId, ArticleId, TagName
     from article_tag
     where ArticleTagId = #{articleTagId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select ArticleTagId, ArticleId, TagId
+    select ArticleTagId, ArticleId, TagName
     from article_tag
   </select>
 </mapper>

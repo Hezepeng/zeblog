@@ -6,6 +6,8 @@ import java.util.List;
 public interface ArticleCategoryMapper {
     int deleteByPrimaryKey(Integer articleCategoryId);
 
+    int deleteByArticleId(Integer articleId);
+
     int insert(ArticleCategory record);
 
     ArticleCategory selectByPrimaryKey(Integer articleCategoryId);

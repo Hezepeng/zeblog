@@ -87,7 +87,7 @@
     delete from article
     where ArticleId = #{articleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zeblog.entity.Article" useGeneratedKeys="true" keyProperty="ArticleId">
+  <insert id="insert" parameterType="com.zeblog.bo.ArticleBo" useGeneratedKeys="true" keyProperty="articleId">
     insert into article (<include refid="totalColumn"/>)
     values (#{articleId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{originalType,jdbcType=VARCHAR}, 
@@ -96,11 +96,9 @@
       #{thumbsUpTimes,jdbcType=INTEGER}, #{isTop,jdbcType=BIT}, #{topRank,jdbcType=INTEGER}, 
       #{isDelete,jdbcType=BIT}, #{state,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Article">
+  <update id="updateByPrimaryKey" parameterType="com.zeblog.bo.ArticleBo">
     update article
     set Title = #{title,jdbcType=VARCHAR},
-      AuthorId = #{authorId,jdbcType=INTEGER},
-      CreateTime = #{createTime,jdbcType=TIMESTAMP},
       UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
       OriginalType = #{originalType,jdbcType=VARCHAR},
       CodeStyle = #{codeStyle,jdbcType=VARCHAR},
@@ -108,11 +106,8 @@
       HtmlContent = #{htmlContent,jdbcType=VARCHAR},
       MarkdownCatalog = #{markdownCatalog,jdbcType=VARCHAR},
       HtmlCatalog = #{htmlCatalog,jdbcType=VARCHAR},
-      ReadTimes = #{readTimes,jdbcType=INTEGER},
-      ThumbsUpTimes = #{thumbsUpTimes,jdbcType=INTEGER},
       IsTop = #{isTop,jdbcType=BIT},
       TopRank = #{topRank,jdbcType=INTEGER},
-      IsDelete = #{isDelete,jdbcType=BIT},
       State = #{state,jdbcType=INTEGER}
     where ArticleId = #{articleId,jdbcType=INTEGER}
   </update>

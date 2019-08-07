@@ -1,5 +1,6 @@
 package com.zeblog.controller;
 
+import com.zeblog.bo.ArticleBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.Article;
 import com.zeblog.entity.User;
@@ -32,8 +33,14 @@ public class ArticleApiController {
 
     @ResponseBody
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ServerResponse addArticle(HttpServletRequest request, @RequestBody Article article) {
+    public ServerResponse addArticle(HttpServletRequest request, @RequestBody ArticleBo article) {
         return articleService.addArticle(request,article);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public ServerResponse updateArticle(HttpServletRequest request, @RequestBody ArticleBo article) {
+        return articleService.updateArticle(request,article);
     }
 
     @ResponseBody

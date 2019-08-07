@@ -2,7 +2,7 @@ package com.zeblog.controller;
 
 
 import com.zeblog.common.ServerResponse;
-import com.zeblog.entity.Tag;
+import com.zeblog.entity.ArticleTag;
 import com.zeblog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,25 +28,25 @@ public class TagApiController {
 
     @ResponseBody
     @RequestMapping(value = "getUserTag",method = RequestMethod.GET)
-    public ServerResponse<List<Tag>> getUserTag(HttpServletRequest request){
+    public ServerResponse<List<ArticleTag>> getUserTag(HttpServletRequest request){
         return tagService.getUserTag(request);
     }
 
     @ResponseBody
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ServerResponse addUserTag(HttpServletRequest request, @RequestBody Tag tag){
+    public ServerResponse addUserTag(HttpServletRequest request, @RequestBody ArticleTag tag){
         return tagService.addUserTag(request,tag);
     }
 
     @ResponseBody
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ServerResponse updateUserTag(HttpServletRequest request, @RequestBody Tag tag){
+    public ServerResponse updateUserTag(HttpServletRequest request, @RequestBody ArticleTag tag){
         return tagService.updateUserTag(request,tag);
     }
 
     @ResponseBody
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public ServerResponse deleteUserTag(HttpServletRequest request, @RequestBody Tag tag) {
+    public ServerResponse deleteUserTag(HttpServletRequest request, @RequestBody ArticleTag tag) {
         return tagService.deleteUserTag(request, tag);
     }
 }
