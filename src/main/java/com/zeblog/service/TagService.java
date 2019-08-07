@@ -13,4 +13,10 @@ import java.util.List;
  */
 public interface TagService {
     ServerResponse<List<Tag>> getUserTag(HttpServletRequest request);
+
+    ServerResponse<Tag> addUserTag(HttpServletRequest request, Tag tag);
+
+    ServerResponse deleteUserTag(HttpServletRequest request,Tag tag);
+
+    ServerResponse updateUserTag(HttpServletRequest request,Tag tag);
 }

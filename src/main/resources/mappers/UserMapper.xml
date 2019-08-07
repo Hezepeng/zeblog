@@ -25,7 +25,7 @@
     delete from user
     where Username = #{username,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.zeblog.entity.User" useGeneratedKeys="true" keyProperty="UserId">
+    <insert id="insert" parameterType="com.zeblog.entity.User" useGeneratedKeys="true" keyProperty="userId">
     insert into user (UserId, Username, Password,
       Nickname, Name, Phone, 
       Email, CreateTime, LoginTimes, 

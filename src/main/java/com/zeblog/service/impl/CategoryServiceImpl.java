@@ -28,12 +28,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ServerResponse addUserCategory(HttpServletRequest request, Category category) {
+    public ServerResponse<Category> addUserCategory(HttpServletRequest request, Category category) {
+        int userId=TokenUtil.getUserIdFromRequest(request);
+        category.setUserId(userId);
         Category existCategory = categoryMapper.selectByUserIdAndCategoryName(category);
         if (existCategory != null) {
             return ServerResponse.createByErrorMessage("该类目已存在，请勿重复添加");
         }
-
         int effectRow;
         try {
             effectRow = categoryMapper.insert(category);
@@ -44,12 +45,16 @@ public class CategoryServiceImpl implements CategoryService {
         if (effectRow == 0) {
             return ServerResponse.createByErrorMessage("类目添加失败");
         }
-        return ServerResponse.createBySuccessMessage("添加成功");
+        System.out.println(category.getCategoryId());
+        category=categoryMapper.selectByPrimaryKey(category.getCategoryId());
+        return ServerResponse.createBySuccess("添加成功", category);
     }
 
     @Override
     public ServerResponse deleteUserCategory(HttpServletRequest request, Category category) {
-        Category existCategory = categoryMapper.selectByPrimaryKey(category.getCategoryId());
+        int userId=TokenUtil.getUserIdFromRequest(request);
+        category.setUserId(userId);
+        Category existCategory = categoryMapper.selectByUserIdAndCategoryId(category);
         if (existCategory == null) {
             return ServerResponse.createByErrorMessage("要删除的类目不存在");
         }
@@ -68,7 +73,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ServerResponse updateUserCategory(HttpServletRequest request, Category category) {
-        Category existCategory = categoryMapper.selectByPrimaryKey(category.getCategoryId());
+        // 每次读取Token中的UserId 防止被人恶意提交非得当前用户的UserId
+        int userId=TokenUtil.getUserIdFromRequest(request);
+        category.setUserId(userId);
+        Category existCategory = categoryMapper.selectByUserIdAndCategoryId(category);
         if (existCategory == null) {
             return ServerResponse.createByErrorMessage("要更新的类目不存在");
         }

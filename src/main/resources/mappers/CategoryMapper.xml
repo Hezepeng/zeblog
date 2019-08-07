@@ -7,15 +7,27 @@
     <result column="CategoryName" jdbcType="VARCHAR" property="categoryName" />
     <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+  <resultMap id="CategoryBoResultMap" type="com.zeblog.bo.CategoryBo">
+    <id column="CategoryId" jdbcType="INTEGER" property="categoryId" />
+    <result column="UserId" jdbcType="INTEGER" property="userId" />
+    <result column="CategoryName" jdbcType="VARCHAR" property="categoryName" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+    <collection property="articles" ofType="ArticleCategory" column="CategoryId" select="selectUserCategoryArticle"/>
+  </resultMap>
+  <resultMap id="CategoryArticleResultMap" type="com.zeblog.entity.ArticleCategory">
+    <id column="articleCategoryId" jdbcType="INTEGER" property="articleCategoryId"/>
+    <result column="articleId" jdbcType="INTEGER" property="articleId"/>
+    <result column="categoryId" jdbcType="INTEGER" property="categoryId"/>
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from category
     where CategoryId = #{categoryId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zeblog.entity.Category">
+  <insert id="insert" parameterType="com.zeblog.entity.Category" useGeneratedKeys="true" keyProperty="categoryId">
     insert into category (CategoryId, UserId, CategoryName, 
       CreateTime)
     values (#{categoryId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Category">
     update category
@@ -34,12 +46,23 @@
     from category
     where UserId = #{userId,jdbcType=INTEGER} and CategoryName = #{categoryName,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select CategoryId, UserId, CategoryName, CreateTime
+  <select id="selectByUserIdAndCategoryId" parameterType="com.zeblog.entity.Category" resultMap="BaseResultMap">
+    select 'true' as QUERYID,CategoryId, UserId, CategoryName, CreateTime
     from category
+    where UserId = #{userId,jdbcType=INTEGER} and CategoryId = #{categoryId,jdbcType=INTEGER}
   </select>
 
-  <select id="selectUserCategory" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
+    select c.CategoryId, UserId, CategoryName, CreateTime
+    from category
+  </select>
+  <select id="selectUserCategoryArticle" resultMap="CategoryArticleResultMap">
+    select *
+    from article_category
+    where CategoryId = #{categoryId, jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUserCategory" parameterType="java.lang.Integer" resultMap="CategoryBoResultMap">
     select CategoryId, UserId, CategoryName, CreateTime
     from category where UserId = #{userId,jdbcType=INTEGER}
   </select>

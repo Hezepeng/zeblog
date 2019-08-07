@@ -5,7 +5,7 @@ public class ArticleTag {
 
     private Integer articleId;
 
-    private Integer tagId;
+    private String tagName;
 
     public Integer getArticleTagId() {
         return articleTagId;
@@ -23,11 +23,11 @@ public class ArticleTag {
         this.articleId = articleId;
     }
 
-    public Integer getTagId() {
-        return tagId;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setTagId(Integer tagId) {
-        this.tagId = tagId;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 }

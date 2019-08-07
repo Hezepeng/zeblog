@@ -22,9 +22,25 @@ public class TagServiceImpl implements TagService {
 
     @Autowired
     private TagMapper tagMapper;
+
     @Override
     public ServerResponse<List<Tag>> getUserTag(HttpServletRequest request) {
         Integer userId= TokenUtil.getUserIdFromRequest(request);
         return ServerResponse.createBySuccess(tagMapper.selectUserTag(userId));
+    }
+
+    @Override
+    public ServerResponse<Tag> addUserTag(HttpServletRequest request, Tag tag) {
+        return null;
+    }
+
+    @Override
+    public ServerResponse deleteUserTag(HttpServletRequest request, Tag tag) {
+        return null;
+    }
+
+    @Override
+    public ServerResponse updateUserTag(HttpServletRequest request, Tag tag) {
+        return null;
     }
 }

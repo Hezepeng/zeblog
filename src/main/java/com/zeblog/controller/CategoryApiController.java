@@ -33,19 +33,19 @@ public class CategoryApiController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "add", method = RequestMethod.GET)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     public ServerResponse addUserCategory(HttpServletRequest request, @RequestBody Category category){
         return categoryService.addUserCategory(request,category);
     }
 
     @ResponseBody
-    @RequestMapping(value = "update", method = RequestMethod.GET)
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public ServerResponse updateUserCategory(HttpServletRequest request, @RequestBody Category category){
         return categoryService.updateUserCategory(request,category);
     }
 
     @ResponseBody
-    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
     public ServerResponse deleteUserCategory(HttpServletRequest request, @RequestBody Category category){
         return categoryService.deleteUserCategory(request,category);
     }
