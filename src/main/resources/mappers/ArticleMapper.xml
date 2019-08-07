@@ -20,6 +20,15 @@
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
     <result column="State" jdbcType="INTEGER" property="state" />
   </resultMap>
+  <resultMap id="ArticleTagResultMap" type="com.zeblog.entity.ArticleTag">
+    <id column="articleTagId" jdbcType="INTEGER" property="articleTagId"/>
+    <result column="articleId" jdbcType="INTEGER" property="articleId"/>
+    <result column="tagName" jdbcType="VARCHAR" property="tagName"/>
+  </resultMap>
+  <resultMap id="ArticleCategoryResultMap" type="com.zeblog.entity.Category">
+    <id column="categoryId" jdbcType="INTEGER" property="categoryId"/>
+    <result column="categoryName" jdbcType="INTEGER" property="categoryName"/>
+  </resultMap>
   <!--员工关联查询结果映射-->
   <resultMap id="ArticleBoResultMap" type="com.zeblog.bo.ArticleBo">
     <id column="ArticleId" jdbcType="INTEGER" property="articleId" />
@@ -56,6 +65,9 @@
       <result column="Qq" jdbcType="VARCHAR" property="qq"/>
       <result column="Wechat" jdbcType="VARCHAR" property="wechat"/>
     </association>
+    <!--查询外键级联信息(多行记录)-->
+    <collection property="tags" ofType="com.zeblog.entity.ArticleTag" column="ArticleId"  select="selectArticleTagByArticleId" />
+    <collection property="categories" ofType="com.zeblog.entity.ArticleCategory" column="ArticleId" select="selectArticleCategoryByArticleId" />
   </resultMap>
   <sql id="totalColumn">
       ArticleId, Title, AuthorId,
@@ -129,5 +141,15 @@
     select 'true' as QUERYID,<include refid="columnSimpleUserWithoutText"></include>
     from article a inner join user u on a.AuthorId = u.UserId
     where AuthorId = #{authorId,jdbcType=INTEGER}
+  </select>
+  <select id="selectArticleTagByArticleId" parameterType="java.lang.Integer" resultMap="ArticleTagResultMap">
+    select *
+    from article_tag
+    where ArticleId = #{articleId,jdbcType=INTEGER}
+  </select>
+  <select id="selectArticleCategoryByArticleId" parameterType="java.lang.Integer" resultMap="ArticleCategoryResultMap">
+    select *
+    from article_category ac inner join category c on ac.categoryId = c.categoryId
+    where ArticleId = #{articleId,jdbcType=INTEGER}
   </select>
 </mapper>

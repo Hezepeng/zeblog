@@ -1,5 +1,6 @@
 package com.zeblog.controller;
 
+import com.zeblog.bo.CategoryBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.CategoryMapper;
 import com.zeblog.entity.Category;
@@ -30,6 +31,12 @@ public class CategoryApiController {
     @RequestMapping(value = "getUserCategory", method = RequestMethod.GET)
     public ServerResponse<List<Category>> getUserCategory(HttpServletRequest request){
         return categoryService.getUserCategory(request);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getUserCategoryWithArticle", method = RequestMethod.GET)
+    public ServerResponse<List<CategoryBo>> getUserCategoryWithArticle(HttpServletRequest request){
+        return categoryService.getUserCategoryWithArticle(request);
     }
 
     @ResponseBody

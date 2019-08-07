@@ -12,7 +12,7 @@
   </delete>
   <delete id="deleteByArticleId" parameterType="java.lang.Integer">
     delete from article_category
-    where ArticleCategoryId = #{articleId,jdbcType=INTEGER}
+    where ArticleId = #{articleId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zeblog.entity.ArticleCategory">
     insert into article_category (ArticleCategoryId, ArticleId, CategoryId

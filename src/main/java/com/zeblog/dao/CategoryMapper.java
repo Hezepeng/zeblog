@@ -23,5 +23,7 @@ public interface CategoryMapper {
 
     int updateByPrimaryKey(Category record);
 
+    List<CategoryBo> selectUserCategoryWithArticle(Integer userId);
+
     List<Category> selectUserCategory(Integer userId);
 }

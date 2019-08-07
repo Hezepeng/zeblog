@@ -2,6 +2,9 @@ package com.zeblog.dao;
 
 import com.zeblog.bo.ArticleBo;
 import com.zeblog.entity.Article;
+import com.zeblog.entity.ArticleCategory;
+import com.zeblog.entity.ArticleTag;
+
 import java.util.List;
 
 public interface ArticleMapper {
@@ -18,4 +21,9 @@ public interface ArticleMapper {
     List<ArticleBo> selectAllArticle();
 
     int updateByPrimaryKey(ArticleBo article);
+
+    List<ArticleTag> selectArticleTagByArticleId(Integer articleId);
+
+    List<ArticleCategory> selectArticleCategoryByArticleId(Integer articleId);
+
 }

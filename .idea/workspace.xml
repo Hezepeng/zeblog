@@ -14,17 +14,22 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/bo/ArticleBo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/bo/ArticleBo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/ArticleApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/ArticleApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/CategoryApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/CategoryApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/TagApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/TagApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleCategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleCategoryMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleTagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleTagMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/CategoryMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/TagService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/CategoryServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/TagServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/TagServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ArticleCategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ArticleCategoryMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ArticleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ArticleMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ArticleTagMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ArticleTagMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/CategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/CategoryMapper.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,30 +64,6 @@
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>mapper</find>
-      <find>hezepeng</find>
-      <find>ssm_archetype</find>
-      <find>archetype</find>
-      <find>OpenId</find>
-      <find>openId</find>
-      <find>getUserI</find>
-      <find>Id</find>
-      <find>selectUserCategoryArticleCount</find>
-      <find>category</find>
-      <find>TagId</find>
-    </findStrings>
-    <replaceStrings>
-      <replace />
-      <replace>zeblog</replace>
-      <replace>UserId</replace>
-      <replace>userId</replace>
-      <replace>tag</replace>
-      <replace>Tag</replace>
-      <replace>TagName</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -322,7 +303,7 @@
       <workItem from="1564986483214" duration="7266000" />
       <workItem from="1565071531455" duration="883000" />
       <workItem from="1565145163013" duration="5705000" />
-      <workItem from="1565164871471" duration="753000" />
+      <workItem from="1565164871471" duration="4286000" />
     </task>
     <servers />
   </component>

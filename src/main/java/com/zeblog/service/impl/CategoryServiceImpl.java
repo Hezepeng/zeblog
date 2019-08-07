@@ -1,5 +1,6 @@
 package com.zeblog.service.impl;
 
+import com.zeblog.bo.CategoryBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.CategoryMapper;
 import com.zeblog.entity.Category;
@@ -25,6 +26,12 @@ public class CategoryServiceImpl implements CategoryService {
     public ServerResponse<List<Category>> getUserCategory(HttpServletRequest request) {
         Integer userId = TokenUtil.getUserIdFromRequest(request);
         return ServerResponse.createBySuccess(categoryMapper.selectUserCategory(userId));
+    }
+
+    @Override
+    public ServerResponse<List<CategoryBo>> getUserCategoryWithArticle(HttpServletRequest request) {
+        Integer userId = TokenUtil.getUserIdFromRequest(request);
+        return ServerResponse.createBySuccess(categoryMapper.selectUserCategoryWithArticle(userId));
     }
 
     @Override

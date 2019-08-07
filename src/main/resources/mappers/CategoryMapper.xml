@@ -53,7 +53,7 @@
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap">
-    select c.CategoryId, UserId, CategoryName, CreateTime
+    select CategoryId, UserId, CategoryName, CreateTime
     from category
   </select>
   <select id="selectUserCategoryArticle" resultMap="CategoryArticleResultMap">
@@ -62,8 +62,15 @@
     where CategoryId = #{categoryId, jdbcType=INTEGER}
   </select>
 
-  <select id="selectUserCategory" parameterType="java.lang.Integer" resultMap="CategoryBoResultMap">
+  <select id="selectUserCategoryWithArticle" parameterType="java.lang.Integer" resultMap="CategoryBoResultMap">
     select CategoryId, UserId, CategoryName, CreateTime
-    from category where UserId = #{userId,jdbcType=INTEGER}
+    from category
+    where UserId = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUserCategory" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from category
+    where UserId = #{userId,jdbcType=INTEGER}
   </select>
 </mapper>
