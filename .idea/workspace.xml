@@ -10,10 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeafdb88-ea03-4efc-9df4-ec49c8e9a8b3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/CarouselApiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/CarouselMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/entity/Carousel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/CarouselService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/CarouselServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/CarouselMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/ArticleApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/ArticleApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,10 +45,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Jsp File" />
         <option value="CSS File" />
         <option value="HTML File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -100,12 +104,12 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -291,7 +295,8 @@
       <workItem from="1565233075106" duration="686000" />
       <workItem from="1565321725913" duration="489000" />
       <workItem from="1565355210076" duration="542000" />
-      <workItem from="1565577943102" duration="843000" />
+      <workItem from="1565577943102" duration="4147000" />
+      <workItem from="1565590200881" duration="403000" />
     </task>
     <servers />
   </component>

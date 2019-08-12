@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeblog.dao.CarouselMapper">
+  <resultMap id="BaseResultMap" type="com.zeblog.entity.Carousel">
+    <id column="CarouselId" jdbcType="INTEGER" property="carouselId" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="ImgUrl" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="ThumbnailUrl" jdbcType="VARCHAR" property="thumbnailUrl" />
+    <result column="RedirectUrl" jdbcType="VARCHAR" property="redirectUrl" />
+    <result column="ClickTimes" jdbcType="INTEGER" property="clickTimes" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="Rank" jdbcType="INTEGER" property="rank" />
+    <result column="IsTop" jdbcType="BIT" property="isTop" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from carousel
+    where CarouselId = #{carouselId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zeblog.entity.Carousel">
+    insert into carousel (CarouselId, Title, ImgUrl, 
+      ThumbnailUrl, RedirectUrl, Rank, IsTop
+      )
+    values (#{carouselId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{thumbnailUrl,jdbcType=VARCHAR}, #{redirectUrl,jdbcType=VARCHAR}, #{rank,jdbcType=INTEGER}, #{isTop,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Carousel">
+    update carousel
+    set Title = #{title,jdbcType=VARCHAR},
+      ImgUrl = #{imgUrl,jdbcType=VARCHAR},
+      ThumbnailUrl = #{thumbnailUrl,jdbcType=VARCHAR},
+      RedirectUrl = #{redirectUrl,jdbcType=VARCHAR},
+      ClickTimes = #{clickTimes,jdbcType=INTEGER},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      Rank = #{rank,jdbcType=INTEGER},
+      IsTop = #{isTop,jdbcType=BIT}
+    where CarouselId = #{carouselId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,CarouselId, Title, ImgUrl, ThumbnailUrl, RedirectUrl, ClickTimes, 
+    CreateTime, Rank, IsTop
+    from carousel
+    where CarouselId = #{carouselId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select CarouselId, Title, ImgUrl, ThumbnailUrl, RedirectUrl, ClickTimes, CreateTime, 
+    Rank, IsTop
+    from carousel order by IsTop desc, Rank desc, CreateTime desc
+  </select>
+</mapper>

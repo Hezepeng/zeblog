@@ -74,43 +74,7 @@
 <!--            <columnOverride column="htmlCatalog" javaType="java.lang.String" jdbcType="VARCHAR" />-->
 <!--        </table>-->
 
-        <table tableName="tag" domainObjectName="Tag"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"
-               enableInsert="true"
-               enableSelectByPrimaryKey="true"
-               selectByPrimaryKeyQueryId="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-
-        <table tableName="article_tag" domainObjectName="ArticleTag"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"
-               enableInsert="true"
-               enableSelectByPrimaryKey="true"
-               selectByPrimaryKeyQueryId="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-
-        <table tableName="category" domainObjectName="Category"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"
-               enableInsert="true"
-               enableSelectByPrimaryKey="true"
-               selectByPrimaryKeyQueryId="true">
-            <property name="useActualColumnNames" value="true"/>
-        </table>
-
-        <table tableName="article_category" domainObjectName="ArticleCategory"
+        <table tableName="carousel" domainObjectName="Carousel"
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
