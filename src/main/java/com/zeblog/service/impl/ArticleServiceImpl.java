@@ -137,4 +137,13 @@ public class ArticleServiceImpl implements ArticleService {
         String msg = article.getState() == 0 ? "文章已更新并保存到草稿箱" : "文章信息已更新";
         return ServerResponse.createBySuccess(msg, article);
     }
+
+    @Override
+    public ServerResponse<ArticleBo> deleteArticle(HttpServletRequest request, ArticleBo article) {
+        if (article != null) {
+            articleMapper.deleteByPrimaryKey(article.getArticleId());
+            return ServerResponse.createBySuccessMessage("该文章已删除");
+        }
+        return ServerResponse.createByErrorMessage("未接收到文章信息");
+    }
 }

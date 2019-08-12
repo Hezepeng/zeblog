@@ -25,6 +25,9 @@ public interface ArticleService {
 
     ServerResponse<ArticleBo> updateArticle(HttpServletRequest request, ArticleBo article);
 
+    ServerResponse<ArticleBo> deleteArticle(HttpServletRequest request, ArticleBo article);
+
+
 
 
 }

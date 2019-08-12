@@ -44,6 +44,12 @@ public class ArticleApiController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public ServerResponse deleteArticle(HttpServletRequest request, @RequestBody ArticleBo article) {
+        return articleService.deleteArticle(request,article);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public ServerResponse getAllArticles(HttpServletRequest request) {
         return articleService.getAllArticles(request);

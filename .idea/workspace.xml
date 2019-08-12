@@ -10,26 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeafdb88-ea03-4efc-9df4-ec49c8e9a8b3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/bo/ArticleBo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/bo/ArticleBo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/ArticleApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/ArticleApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/CategoryApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/CategoryApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/TagApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/controller/TagApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleCategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleCategoryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleTagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/ArticleTagMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/dao/CategoryMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/TagService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/CategoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/TagServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zeblog/service/impl/TagServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ArticleCategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ArticleCategoryMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ArticleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ArticleMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ArticleTagMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ArticleTagMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/CategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/CategoryMapper.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -303,7 +287,11 @@
       <workItem from="1564986483214" duration="7266000" />
       <workItem from="1565071531455" duration="883000" />
       <workItem from="1565145163013" duration="5705000" />
-      <workItem from="1565164871471" duration="4286000" />
+      <workItem from="1565164871471" duration="4287000" />
+      <workItem from="1565233075106" duration="686000" />
+      <workItem from="1565321725913" duration="489000" />
+      <workItem from="1565355210076" duration="542000" />
+      <workItem from="1565577943102" duration="843000" />
     </task>
     <servers />
   </component>
@@ -315,7 +303,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
