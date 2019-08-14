@@ -7,9 +7,11 @@ import com.zeblog.service.CarouselService;
 import javafx.scene.effect.Effect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Hezepeng
@@ -80,5 +82,10 @@ public class CarouselServiceImpl implements CarouselService {
     @Override
     public ServerResponse<List<Carousel>> getAllCarousel() {
         return ServerResponse.createBySuccess(carouselMapper.selectAll());
+    }
+
+    @Override
+    public ServerResponse<Map<String, String>> uploadImage(HttpServletRequest request, MultipartFile file) {
+        return null;
     }
 }

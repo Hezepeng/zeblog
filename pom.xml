@@ -13,6 +13,21 @@
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
+    <repositories>
+        <repository>
+            <id>bintray-qcloud-maven-repo</id>
+            <name>qcloud-maven-repo</name>
+            <url>https://dl.bintray.com/qcloud/maven-repo/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
@@ -213,6 +228,13 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
+        </dependency>
+
+        <!-- Tencent Cloud SDK -->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>cos-sts-java</artifactId>
+            <version>3.0.4</version>
         </dependency>
 
     </dependencies>

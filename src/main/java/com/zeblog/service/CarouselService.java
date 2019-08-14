@@ -2,9 +2,11 @@ package com.zeblog.service;
 
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.Carousel;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Hezepeng
@@ -19,4 +21,6 @@ public interface CarouselService {
     ServerResponse<Carousel> updateCarousel(Carousel carousel);
 
     ServerResponse<List<Carousel>> getAllCarousel();
+
+    ServerResponse<Map<String,String>> uploadImage(HttpServletRequest request, MultipartFile file);
 }

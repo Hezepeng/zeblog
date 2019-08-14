@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -51,6 +53,13 @@ public class CarouselApiController {
     @ResponseBody
     public ServerResponse getAllCarousel(HttpServletRequest request) {
         return carouselService.getAllCarousel();
+    }
+
+    @RequestMapping(value = "upload",method = RequestMethod.POST)
+    @ResponseBody
+    @AdminInterceptor
+    public ServerResponse uploadImage(HttpServletRequest request, MultipartFile file){
+        return null;
     }
 
 
