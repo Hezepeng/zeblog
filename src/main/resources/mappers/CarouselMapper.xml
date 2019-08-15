@@ -30,8 +30,6 @@
       ImgUrl = #{imgUrl,jdbcType=VARCHAR},
       ThumbnailUrl = #{thumbnailUrl,jdbcType=VARCHAR},
       RedirectUrl = #{redirectUrl,jdbcType=VARCHAR},
-      ClickTimes = #{clickTimes,jdbcType=INTEGER},
-      CreateTime = #{createTime,jdbcType=TIMESTAMP},
       Rank = #{rank,jdbcType=INTEGER},
       IsTop = #{isTop,jdbcType=BIT}
     where CarouselId = #{carouselId,jdbcType=INTEGER}

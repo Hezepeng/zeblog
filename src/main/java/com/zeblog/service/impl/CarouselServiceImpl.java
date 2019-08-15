@@ -57,7 +57,7 @@ public class CarouselServiceImpl implements CarouselService {
         if (effectRow == 0) {
             return ServerResponse.createByErrorMessage("发生异常，删除轮播失败");
         }
-        return ServerResponse.createBySuccess("删除成功");
+        return ServerResponse.createBySuccessMessage("删除成功");
     }
 
     @Override
@@ -82,6 +82,11 @@ public class CarouselServiceImpl implements CarouselService {
     @Override
     public ServerResponse<List<Carousel>> getAllCarousel() {
         return ServerResponse.createBySuccess(carouselMapper.selectAll());
+    }
+
+    @Override
+    public ServerResponse<Carousel> getCarouselById(Integer carouselID) {
+        return ServerResponse.createBySuccess(carouselMapper.selectByPrimaryKey(carouselID));
     }
 
     @Override

@@ -55,6 +55,14 @@ public class CarouselApiController {
         return carouselService.getAllCarousel();
     }
 
+    @RequestMapping(value = "get", method = RequestMethod.GET)
+    @ResponseBody
+    @AdminInterceptor
+    public ServerResponse getCarouselById(Integer carouselId) {
+        return carouselService.getCarouselById(carouselId);
+    }
+
+
     @RequestMapping(value = "upload",method = RequestMethod.POST)
     @ResponseBody
     @AdminInterceptor

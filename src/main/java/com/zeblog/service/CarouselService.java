@@ -22,5 +22,7 @@ public interface CarouselService {
 
     ServerResponse<List<Carousel>> getAllCarousel();
 
+    ServerResponse<Carousel> getCarouselById(Integer carouselId);
+
     ServerResponse<Map<String,String>> uploadImage(HttpServletRequest request, MultipartFile file);
 }
