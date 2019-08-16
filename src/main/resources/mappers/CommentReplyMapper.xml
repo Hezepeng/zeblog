@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeblog.dao.CommentReplyMapper">
+  <resultMap id="BaseResultMap" type="com.zeblog.entity.CommentReply">
+    <id column="CommentReplyId" jdbcType="INTEGER" property="commentReplyId" />
+    <result column="CommentId" jdbcType="INTEGER" property="commentId" />
+    <result column="ReplyId" jdbcType="INTEGER" property="replyId" />
+    <result column="ReplyType" jdbcType="VARCHAR" property="replyType" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="FromUserId" jdbcType="INTEGER" property="fromUserId" />
+    <result column="ToUserId" jdbcType="INTEGER" property="toUserId" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LikeTimes" jdbcType="INTEGER" property="likeTimes" />
+    <result column="ReplyTimes" jdbcType="INTEGER" property="replyTimes" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment_reply
+    where CommentReplyId = #{commentReplyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zeblog.entity.CommentReply">
+    insert into comment_reply (CommentReplyId, CommentId, ReplyId, 
+      ReplyType, Content, FromUserId, 
+      ToUserId, CreateTime, LikeTimes, 
+      ReplyTimes)
+    values (#{commentReplyId,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, #{replyId,jdbcType=INTEGER}, 
+      #{replyType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{fromUserId,jdbcType=INTEGER}, 
+      #{toUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{likeTimes,jdbcType=INTEGER}, 
+      #{replyTimes,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.CommentReply">
+    update comment_reply
+    set CommentId = #{commentId,jdbcType=INTEGER},
+      ReplyId = #{replyId,jdbcType=INTEGER},
+      ReplyType = #{replyType,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      FromUserId = #{fromUserId,jdbcType=INTEGER},
+      ToUserId = #{toUserId,jdbcType=INTEGER},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      LikeTimes = #{likeTimes,jdbcType=INTEGER},
+      ReplyTimes = #{replyTimes,jdbcType=INTEGER}
+    where CommentReplyId = #{commentReplyId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,CommentReplyId, CommentId, ReplyId, ReplyType, Content, 
+    FromUserId, ToUserId, CreateTime, LikeTimes, ReplyTimes
+    from comment_reply
+    where CommentReplyId = #{commentReplyId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select CommentReplyId, CommentId, ReplyId, ReplyType, Content, FromUserId, ToUserId, 
+    CreateTime, LikeTimes, ReplyTimes
+    from comment_reply
+  </select>
+</mapper>
