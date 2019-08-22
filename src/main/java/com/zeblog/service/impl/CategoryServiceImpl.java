@@ -32,9 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ServerResponse<List<CategoryBo>> getUserCategoryWithArticle(HttpServletRequest request) {
         Integer userId = TokenUtil.getUserIdFromRequest(request);
-        List<CategoryBo> list = categoryMapper.selectUserCategoryWithArticle(userId);
-        System.out.println(JSON.toJSON(list));
-        return ServerResponse.createBySuccess(list);
+        return ServerResponse.createBySuccess(categoryMapper.selectUserCategoryWithArticle(userId));
     }
 
     @Override

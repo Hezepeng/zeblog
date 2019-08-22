@@ -40,6 +40,14 @@
                         <value>application/json;charset=UTF-8</value>
                     </list>
                 </property>
+                <!-- 配置全局返回json的时候都忽略为null的字段的key和value(不管多少层属性，只要有null的属性都忽略) -->
+<!--                <property name="objectMapper">-->
+<!--                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">-->
+<!--                        <property name="serializationInclusion">-->
+<!--                            <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>-->
+<!--                        </property>-->
+<!--                    </bean>-->
+<!--                </property>-->
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>

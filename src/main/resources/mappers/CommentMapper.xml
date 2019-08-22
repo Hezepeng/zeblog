@@ -39,7 +39,7 @@
   <sql id="CommentBoColumn">
       comment.CommentId, comment.ArticleId, comment.Content,comment.CommentType,
       comment.FromUserId, comment.CreateTime, comment.LikeTimes,
-      comment.ReplyTimes, comment.isDelete, article.ArticleId, article.Title,
+      comment.ReplyTimes, article.ArticleId, article.Title,
       user.UserId, user.Username,
       user.Nickname, user.Role, user.Avatar
   </sql>
