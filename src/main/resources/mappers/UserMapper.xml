@@ -88,6 +88,12 @@
     select  'true' as QUERYID,UserId, Username, Password, Nickname, Name, Phone, Email,
     CreateTime, LoginTimes, LastLoginTime, Role, Avatar, Qq, Wechat from user where Username = #{username}
   </select>
+    <select id="selectSimpleUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  'true' as QUERYID,UserId, Username, Nickname, Role, Avatar from user where Username = #{username}
+  </select>
+    <select id="selectSimpleUserByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  'true' as QUERYID,UserId, Username, Nickname, Role, Avatar from user where UserId = #{UserId}
+  </select>
     <select id="selectByUsernameAndPassword" resultMap="BaseResultMap" parameterType="map">
     select * from user where Username = #{username} and Password = #{password}
   </select>

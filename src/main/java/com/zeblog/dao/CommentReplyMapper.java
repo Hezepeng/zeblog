@@ -1,5 +1,6 @@
 package com.zeblog.dao;
 
+import com.zeblog.bo.CommentReplyBo;
 import com.zeblog.entity.CommentReply;
 import java.util.List;
 
@@ -11,6 +12,8 @@ public interface CommentReplyMapper {
     CommentReply selectByPrimaryKey(Integer commentReplyId);
 
     List<CommentReply> selectAll();
+
+    List<CommentReplyBo> selectCommentReplyByCommentId(Integer commentId);
 
     int updateByPrimaryKey(CommentReply record);
 }

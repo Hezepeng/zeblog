@@ -1,5 +1,6 @@
 package com.zeblog.dao;
 
+import com.zeblog.bo.CommentBo;
 import com.zeblog.entity.Comment;
 import java.util.List;
 
@@ -10,7 +11,9 @@ public interface CommentMapper {
 
     Comment selectByPrimaryKey(Integer commentId);
 
-    List<Comment> selectByArticleId(Integer articleId);
+    List<CommentBo> selectCommentByArticleId(Integer articleId);
+
+    List<CommentBo> selectCommentByType(String commentType);
 
     List<Comment> selectAll();
 

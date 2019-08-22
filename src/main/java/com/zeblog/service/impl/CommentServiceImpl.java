@@ -1,5 +1,7 @@
 package com.zeblog.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.zeblog.bo.CommentBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.CommentMapper;
 import com.zeblog.entity.Comment;
@@ -66,12 +68,15 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public ServerResponse<List<Comment>> selectCommentByArticleId(Integer articleId) {
-        return ServerResponse.createBySuccess(commentMapper.selectByArticleId(articleId));
+    public ServerResponse<List<CommentBo>> selectCommentByArticleId(Integer articleId) {
+        return ServerResponse.createBySuccess(commentMapper.selectCommentByArticleId(articleId));
     }
 
+
     @Override
-    public ServerResponse selectCommentByType() {
-        return null;
+    public ServerResponse<List<CommentBo>> selectCommentByType(String commentType) {
+        List<CommentBo> list = commentMapper.selectCommentByType(commentType);
+        System.out.println(JSON.toJSON(list));
+        return ServerResponse.createBySuccess(list);
     }
 }

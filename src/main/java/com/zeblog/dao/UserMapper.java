@@ -20,5 +20,9 @@ public interface UserMapper {
 
     User selectByUsername(String username);
 
+    User selectSimpleUserByUsername(String username);
+
+    User selectSimpleUserByUserId(String username);
+
     User selectByUsernameAndPassword(@Param("username")String username,@Param("password")String password);
 }

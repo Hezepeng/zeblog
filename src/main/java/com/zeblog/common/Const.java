@@ -37,4 +37,15 @@ public class Const {
      */
     public static final String TOKEN_HEADER_NAME = "X-Token";
 
+    /**
+     * 评论类型-文章评论
+     */
+    public static final String COMMENT_TYPE_ARTICLE = "article";
+
+    /**
+     * 评论类型-网站留言
+     */
+    public static final String COMMENT_TYPE_MESSAGE = "message";
+
+
 }

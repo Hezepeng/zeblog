@@ -39,7 +39,7 @@ public class User {
 
     private String role;
 
-    private String avatar;
+    private String avatar = "";
 
     private String qq;
 

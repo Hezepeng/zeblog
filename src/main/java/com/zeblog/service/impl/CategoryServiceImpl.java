@@ -1,5 +1,6 @@
 package com.zeblog.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.zeblog.bo.CategoryBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.CategoryMapper;
@@ -31,7 +32,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ServerResponse<List<CategoryBo>> getUserCategoryWithArticle(HttpServletRequest request) {
         Integer userId = TokenUtil.getUserIdFromRequest(request);
-        return ServerResponse.createBySuccess(categoryMapper.selectUserCategoryWithArticle(userId));
+        List<CategoryBo> list = categoryMapper.selectUserCategoryWithArticle(userId);
+        System.out.println(JSON.toJSON(list));
+        return ServerResponse.createBySuccess(list);
     }
 
     @Override

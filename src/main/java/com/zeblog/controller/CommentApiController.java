@@ -1,5 +1,6 @@
 package com.zeblog.controller;
 
+import com.zeblog.common.Const;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.CommentMapper;
 import com.zeblog.entity.Comment;
@@ -47,9 +48,23 @@ public class CommentApiController {
         return null;
     }
 
-    @RequestMapping(value = "getCommentByArticleId", method = RequestMethod.POST)
+    @RequestMapping(value = "getCommentByArticleId", method = RequestMethod.GET)
     @ResponseBody
     public ServerResponse selectCommentByArticleId(Integer articleId) {
         return commentService.selectCommentByArticleId(articleId);
+    }
+
+    @RequestMapping(value = "getAllComment", method = RequestMethod.GET)
+    @ResponseBody
+    @AdminInterceptor
+    public ServerResponse getAllComment() {
+        return commentService.selectCommentByType(Const.COMMENT_TYPE_ARTICLE);
+    }
+
+    @RequestMapping(value = "getAllMessage", method = RequestMethod.GET)
+    @ResponseBody
+    @AdminInterceptor
+    public ServerResponse selectAllMessage() {
+        return commentService.selectCommentByType(Const.COMMENT_TYPE_MESSAGE);
     }
 }

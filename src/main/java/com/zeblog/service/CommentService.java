@@ -1,9 +1,11 @@
 package com.zeblog.service;
 
+import com.zeblog.bo.CommentBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.Comment;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author: Hezepeng
@@ -17,9 +19,9 @@ public interface CommentService {
 
     ServerResponse updateComment(HttpServletRequest request, Comment comment);
 
-    ServerResponse selectCommentByArticleId(Integer articleId);
+    ServerResponse<List<CommentBo>> selectCommentByArticleId(Integer articleId);
 
-    ServerResponse selectCommentByType();
+    ServerResponse<List<CommentBo>> selectCommentByType(String commentType);
 
 
 }

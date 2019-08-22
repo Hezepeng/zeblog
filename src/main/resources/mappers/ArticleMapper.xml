@@ -50,7 +50,7 @@
     <result column="State" jdbcType="INTEGER" property="state" />
     <!--映射关系，指定属性与属性的类型-->
     <association property="author" javaType="com.zeblog.entity.User">
-      <id property="userId" jdbcType="INTEGER" column="authorId"/>
+      <id property="userId" jdbcType="INTEGER" column="AuthorId"/>
       <result column="Username" jdbcType="VARCHAR" property="username"/>
       <result column="Password" jdbcType="VARCHAR" property="password"/>
       <result column="Nickname" jdbcType="VARCHAR" property="nickname"/>

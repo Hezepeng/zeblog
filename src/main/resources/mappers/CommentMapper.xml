@@ -12,6 +12,37 @@
     <result column="ReplyTimes" jdbcType="INTEGER" property="replyTimes" />
     <result column="IsDelete" jdbcType="BIT" property="isDelete" />
   </resultMap>
+  <!-- 后端文章评论列表结果映射 -->
+  <resultMap id="ConsoleArticleCommentBoMap" type="com.zeblog.bo.CommentBo">
+    <id column="CommentId" jdbcType="INTEGER" property="commentId" />
+    <result column="ArticleId" jdbcType="INTEGER" property="articleId" />
+    <result column="CommentType" jdbcType="VARCHAR" property="commentType" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="FromUserId" jdbcType="INTEGER" property="fromUserId" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LikeTimes" jdbcType="INTEGER" property="likeTimes" />
+    <result column="ReplyTimes" jdbcType="INTEGER" property="replyTimes" />
+    <result column="IsDelete" jdbcType="BIT" property="isDelete" />
+    <association property="article" javaType="com.zeblog.entity.Article">
+      <result column="ArticleId" jdbcType="VARCHAR" property="articleId"/>
+      <result column="Title" jdbcType="VARCHAR" property="title"/>
+    </association>
+    <association property="fromUser" javaType="com.zeblog.entity.User">
+      <id  column="FromUserId" jdbcType="INTEGER" property="userId" />
+      <result column="Username" jdbcType="VARCHAR" property="username"/>
+      <result column="Nickname" jdbcType="VARCHAR" property="nickname"/>
+      <result column="Role" jdbcType="VARCHAR" property="role"/>
+      <result column="Avatar" jdbcType="VARCHAR" property="avatar"/>
+    </association>
+    <collection property="replies" ofType="com.zeblog.bo.CommentReplyBo" column="CommentId" select="com.zeblog.dao.CommentReplyMapper.selectCommentReplyByCommentId"/>
+  </resultMap>
+  <sql id="CommentBoColumn">
+      comment.CommentId, comment.ArticleId, comment.Content,comment.CommentType,
+      comment.FromUserId, comment.CreateTime, comment.LikeTimes,
+      comment.ReplyTimes, comment.isDelete, article.ArticleId, article.Title,
+      user.UserId, user.Username,
+      user.Nickname, user.Role, user.Avatar
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from comment
     where CommentId = #{commentId,jdbcType=INTEGER}
@@ -42,11 +73,19 @@
     from comment
     where CommentId = #{commentId,jdbcType=INTEGER}
   </select>
-  <select id="selectByArticleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 'true' as QUERYID,CommentId, ArticleId, CommentType, Content, FromUserId,
-    CreateTime, LikeTimes, ReplyTimes
-    from comment
+  <select id="selectCommentByArticleId" parameterType="java.lang.Integer" resultMap="ConsoleArticleCommentBoMap">
+    select 'true' as QUERYID,<include refid="CommentBoColumn" />
+    from comment comment
+    left outer join article article on comment.ArticleId = article.ArticleId
+    left outer join user user on comment.FromUserId = user.UserId
     where ArticleId = #{articleId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCommentByType" parameterType="java.lang.String" resultMap="ConsoleArticleCommentBoMap">
+    select 'true' as QUERYID,<include refid="CommentBoColumn" />
+    from comment comment
+    inner join article article on comment.ArticleId = article.ArticleId
+    inner join user user on comment.FromUserId = user.UserId
+    where CommentType = #{commentType,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select CommentId, ArticleId, CommentType, Content, FromUserId, CreateTime, LikeTimes, 

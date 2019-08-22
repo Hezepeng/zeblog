@@ -13,6 +13,20 @@
     <result column="LikeTimes" jdbcType="INTEGER" property="likeTimes" />
     <result column="ReplyTimes" jdbcType="INTEGER" property="replyTimes" />
   </resultMap>
+  <resultMap id="CommentReplyBoMap" type="com.zeblog.bo.CommentReplyBo">
+    <id column="CommentReplyId" jdbcType="INTEGER" property="commentReplyId" />
+    <result column="CommentId" jdbcType="INTEGER" property="commentId" />
+    <result column="ReplyId" jdbcType="INTEGER" property="replyId" />
+    <result column="ReplyType" jdbcType="VARCHAR" property="replyType" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="FromUserId" jdbcType="INTEGER" property="fromUserId" />
+    <result column="ToUserId" jdbcType="INTEGER" property="toUserId" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LikeTimes" jdbcType="INTEGER" property="likeTimes" />
+    <result column="ReplyTimes" jdbcType="INTEGER" property="replyTimes" />
+    <association property="fromUser" column="FromUserId" select="com.zeblog.dao.UserMapper.selectSimpleUserByUserId"/>
+    <association property="toUser" column="ToUserId" select="com.zeblog.dao.UserMapper.selectSimpleUserByUserId"/>
+  </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from comment_reply
     where CommentReplyId = #{commentReplyId,jdbcType=INTEGER}
@@ -48,6 +62,11 @@
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select CommentReplyId, CommentId, ReplyId, ReplyType, Content, FromUserId, ToUserId, 
+    CreateTime, LikeTimes, ReplyTimes
+    from comment_reply
+  </select>
+  <select id="selectCommentReplyByCommentId" parameterType="java.lang.Integer" resultMap="CommentReplyBoMap">
+    select CommentReplyId, CommentId, ReplyId, ReplyType, Content, FromUserId, ToUserId,
     CreateTime, LikeTimes, ReplyTimes
     from comment_reply
   </select>
