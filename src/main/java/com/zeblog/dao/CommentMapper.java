@@ -10,6 +10,8 @@ public interface CommentMapper {
 
     Comment selectByPrimaryKey(Integer commentId);
 
+    List<Comment> selectByArticleId(Integer articleId);
+
     List<Comment> selectAll();
 
     int updateByPrimaryKey(Comment record);

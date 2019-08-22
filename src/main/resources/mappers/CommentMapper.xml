@@ -16,14 +16,12 @@
     delete from comment
     where CommentId = #{commentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zeblog.entity.Comment">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="commentId" parameterType="com.zeblog.entity.Comment">
     insert into comment (CommentId, ArticleId, CommentType, 
-      Content, FromUserId, CreateTime, 
-      LikeTimes, ReplyTimes, IsDelete
+      Content, FromUserId
       )
-    values (#{commentId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{commentType,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{fromUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{likeTimes,jdbcType=INTEGER}, #{replyTimes,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
+    values (#{commentId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{commentType,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{fromUserId,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.Comment">
@@ -43,6 +41,12 @@
     CreateTime, LikeTimes, ReplyTimes, IsDelete
     from comment
     where CommentId = #{commentId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByArticleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,CommentId, ArticleId, CommentType, Content, FromUserId,
+    CreateTime, LikeTimes, ReplyTimes
+    from comment
+    where ArticleId = #{articleId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select CommentId, ArticleId, CommentType, Content, FromUserId, CreateTime, LikeTimes, 
