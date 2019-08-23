@@ -1,6 +1,7 @@
 package com.zeblog.bo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.zeblog.entity.Article;
 import com.zeblog.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +15,8 @@ import java.util.List;
  * @email: hezepeng96@foxmail.com
  * @date: 2019-08-22 12:18
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)//保证序列化json的时候,如果是null的对象,key也会消失，只作用于该类的第一层属性本身
+
 public class CommentBo {
 
     private List<CommentReplyBo> replies;
