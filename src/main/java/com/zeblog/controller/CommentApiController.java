@@ -38,14 +38,14 @@ public class CommentApiController {
     @ResponseBody
     @AdminInterceptor
     public ServerResponse deleteComment(HttpServletRequest request, @RequestBody Comment comment) {
-        return null;
+        return commentService.deleteComment(request, comment);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
     @AdminInterceptor
     public ServerResponse updateComment(HttpServletRequest request, @RequestBody Comment comment) {
-        return null;
+        return commentService.updateComment(request, comment);
     }
 
     @RequestMapping(value = "getCommentByArticleId", method = RequestMethod.GET)

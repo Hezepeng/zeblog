@@ -31,15 +31,13 @@
     delete from comment_reply
     where CommentReplyId = #{commentReplyId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zeblog.entity.CommentReply">
+  <insert id="insert" keyProperty="commentReplyId" useGeneratedKeys="true" parameterType="com.zeblog.entity.CommentReply">
     insert into comment_reply (CommentReplyId, CommentId, ReplyId, 
       ReplyType, Content, FromUserId, 
-      ToUserId, CreateTime, LikeTimes, 
-      ReplyTimes)
+      ToUserId)
     values (#{commentReplyId,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, #{replyId,jdbcType=INTEGER}, 
       #{replyType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{fromUserId,jdbcType=INTEGER}, 
-      #{toUserId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{likeTimes,jdbcType=INTEGER}, 
-      #{replyTimes,jdbcType=INTEGER})
+      #{toUserId,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zeblog.entity.CommentReply">
     update comment_reply
@@ -54,7 +52,7 @@
       ReplyTimes = #{replyTimes,jdbcType=INTEGER}
     where CommentReplyId = #{commentReplyId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="CommentReplyBoMap">
     select 'true' as QUERYID,CommentReplyId, CommentId, ReplyId, ReplyType, Content, 
     FromUserId, ToUserId, CreateTime, LikeTimes, ReplyTimes
     from comment_reply
@@ -69,5 +67,6 @@
     select CommentReplyId, CommentId, ReplyId, ReplyType, Content, FromUserId, ToUserId,
     CreateTime, LikeTimes, ReplyTimes
     from comment_reply
+    where CommentId = #{commentId,jdbcType=INTEGER}
   </select>
 </mapper>

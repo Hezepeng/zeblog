@@ -9,7 +9,7 @@ public interface CommentReplyMapper {
 
     int insert(CommentReply record);
 
-    CommentReply selectByPrimaryKey(Integer commentReplyId);
+    CommentReplyBo selectByPrimaryKey(Integer commentReplyId);
 
     List<CommentReply> selectAll();
 
