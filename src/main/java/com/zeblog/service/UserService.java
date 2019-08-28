@@ -26,5 +26,9 @@ public interface UserService {
 
     ServerResponse checkUsername(String username);
 
+    ServerResponse getTencentQuickLoginUrl(String redirectUrl);
+
+    ServerResponse qqQuickLoginCallback(String code, String state);
+
 
 }

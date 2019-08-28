@@ -80,6 +80,7 @@
             <mvc:mapping path="/api/**"/>
             <!--定义不需要拦截的路由-->
             <mvc:exclude-mapping path="/api/user/login"/>
+            <mvc:exclude-mapping path="/api/user/qqQuickLogin"/>
             <bean class="com.zeblog.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

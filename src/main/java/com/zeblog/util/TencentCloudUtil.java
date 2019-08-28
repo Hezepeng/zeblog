@@ -8,6 +8,7 @@ import javax.json.JsonObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -24,7 +25,7 @@ public class TencentCloudUtil {
         try {
             Properties properties = new Properties();
             String configFileName = "local.properties";
-            properties.load(new InputStreamReader(Objects.requireNonNull(PropertiesUtil.class.getClassLoader().getResourceAsStream(configFileName)), "UTF-8"));
+            properties.load(new InputStreamReader(Objects.requireNonNull(PropertiesUtil.class.getClassLoader().getResourceAsStream(configFileName)), StandardCharsets.UTF_8));
 
 //            properties.load(new FileInputStream(configFile));
 

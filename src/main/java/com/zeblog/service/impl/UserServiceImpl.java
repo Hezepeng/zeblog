@@ -4,18 +4,18 @@ import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.UserMapper;
 import com.zeblog.entity.User;
 import com.zeblog.service.UserService;
-import com.zeblog.util.MD5Util;
-import com.zeblog.util.TokenUtil;
+import com.zeblog.util.*;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 /**
  * @author hezepeng
@@ -127,6 +127,32 @@ public class UserServiceImpl implements UserService {
             return ServerResponse.createByErrorMessage("用户名已被注册");
         }
         return ServerResponse.createBySuccess("用户名可用");
+    }
+
+    /**
+     * 生成重定向到qq快捷登录页面的地址
+     * @return
+     */
+    @Override
+    public ServerResponse getTencentQuickLoginUrl(String redirectUrl) {
+        try{
+            Properties properties = new Properties();
+            String configFileName = "local.properties";
+            properties.load(new InputStreamReader(Objects.requireNonNull(PropertiesUtil.class.getClassLoader().getResourceAsStream(configFileName)), StandardCharsets.UTF_8));
+            String appId=properties.getProperty("qc_AppId");
+            String salt= TimestampUtil.getMillisTimestamp();
+            String url = String.format("https://graph.qq.com/oauth2.0/authorize?client_id=%s&response_type=code&redirect_uri=%s&state=%s", appId, redirectUrl, salt);
+            return ServerResponse.createBySuccess(url);
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ServerResponse.createByErrorMessage("读取配置异常");
+        }
+    }
+
+    @Override
+    public ServerResponse qqQuickLoginCallback(String code, String state) {
+        return null;
     }
 
     private boolean checkUsernameExist(String username) {

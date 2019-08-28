@@ -6,7 +6,7 @@ package com.zeblog.util;
  * @email: hezepeng96@foxmail.com
  * @date: 2019-07-22 12:10
  */
-public class timestampUtil {
+public class TimestampUtil {
     public static String getSecondTimestamp() {
         return String.valueOf(System.currentTimeMillis() / 1000);
     }

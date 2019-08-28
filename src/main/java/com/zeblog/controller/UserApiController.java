@@ -76,4 +76,15 @@ public class UserApiController {
         return userService.checkPassword(request, username);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "qqQuickLogin", method = RequestMethod.GET)
+    public ServerResponse getTencentQuickLoginUrl(String redirect_url) {
+        return userService.getTencentQuickLoginUrl(redirect_url);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "qqQuickLoginCallback", method = RequestMethod.GET)
+    public ServerResponse qqQuickLoginCallback(String code,String state) {
+        return userService.qqQuickLoginCallback(code,state);
+    }
 }
