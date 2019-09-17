@@ -12,3 +12,5 @@ buildNumber.properties
 /.idea/
 .idea/workspace.xml
 src/main/resources/local.properties
+*.war
+src/main/resources/db.properties
