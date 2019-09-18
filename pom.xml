@@ -249,6 +249,12 @@
             <version>4.4.6</version>
         </dependency>
 
+        <!-- QQ互联SDK-->
+        <dependency>
+            <groupId>Tencent</groupId>
+            <artifactId>Tencent</artifactId>
+            <version>2.0</version>
+        </dependency>
     </dependencies>
 
     <build>

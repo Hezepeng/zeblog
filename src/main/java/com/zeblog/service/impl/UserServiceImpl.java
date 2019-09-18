@@ -1,5 +1,11 @@
 package com.zeblog.service.impl;
 
+import com.qq.connect.QQConnectException;
+import com.qq.connect.api.OpenID;
+import com.qq.connect.api.qzone.UserInfo;
+import com.qq.connect.javabeans.AccessToken;
+import com.qq.connect.javabeans.qzone.UserInfoBean;
+import com.qq.connect.oauth.Oauth;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.UserMapper;
 import com.zeblog.entity.User;
@@ -11,6 +17,7 @@ import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.InputStreamReader;
@@ -131,28 +138,68 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 生成重定向到qq快捷登录页面的地址
+     *
      * @return
      */
     @Override
     public ServerResponse getTencentQuickLoginUrl(String redirectUrl) {
-        try{
+        try {
             Properties properties = new Properties();
             String configFileName = "local.properties";
             properties.load(new InputStreamReader(Objects.requireNonNull(PropertiesUtil.class.getClassLoader().getResourceAsStream(configFileName)), StandardCharsets.UTF_8));
-            String appId=properties.getProperty("qc_AppId");
-            String salt= TimestampUtil.getMillisTimestamp();
+            String appId = properties.getProperty("qc_AppId");
+            String salt = TimestampUtil.getMillisTimestamp();
             String url = String.format("https://graph.qq.com/oauth2.0/authorize?client_id=%s&response_type=code&redirect_uri=%s&state=%s", appId, redirectUrl, salt);
             return ServerResponse.createBySuccess(url);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ServerResponse.createByErrorMessage("读取配置异常");
         }
     }
 
     @Override
-    public ServerResponse qqQuickLoginCallback(String code, String state) {
-        return null;
+    public ServerResponse qqQuickLoginCallback(HttpServletRequest request, HttpSession session) {
+        try {
+            AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
+            String accessToken = null;
+            String openId = null;
+            long expireIn = 0L;
+            if ("".equals(accessTokenObj.getAccessToken())) {
+                return ServerResponse.createByErrorMessage("获取token失败");
+            } else {
+                accessToken = accessTokenObj.getAccessToken();
+                expireIn = accessTokenObj.getExpireIn();
+                OpenID openIDObj = new OpenID(accessToken);
+                openId = openIDObj.getUserOpenID();
+                UserInfo qqUserInfo = new UserInfo(accessToken, openId);
+                UserInfoBean userInfoBean = qqUserInfo.getUserInfo();
+                User user = userMapper.selectByUsername(openId);
+                if (user == null) {
+                    //以前没登录过，先注册
+                    user = new User();
+                    user.setUsername(openId);
+                    user.setNickname(userInfoBean.getNickname());
+                    user.setAvatar(userInfoBean.getAvatar().getAvatarURL100());
+                    user.setPassword(MD5Util.getMD5Upper("123456"));
+                    user.setRole("editor");
+                    user.setCreateTime(new Date());
+                    user.setLoginTimes(0);
+                    int effectRow = userMapper.insert(user);
+                    if (effectRow == 0) {
+                        return ServerResponse.createByErrorMessage("注册失败");
+                    }
+                }
+                String token = TokenUtil.createJWT(user.getUserId().toString(), user.getUsername());
+                Map<String, String> resultMap = new HashMap<>(10);
+                resultMap.put("token", token);
+                session.setAttribute("token", token);
+                return ServerResponse.createBySuccess("登录成功", resultMap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResponse.createByErrorMessage("注册时发生异常");
+        }
     }
 
     private boolean checkUsernameExist(String username) {

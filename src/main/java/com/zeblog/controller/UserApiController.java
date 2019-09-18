@@ -84,7 +84,7 @@ public class UserApiController {
 
     @ResponseBody
     @RequestMapping(value = "qqQuickLoginCallback", method = RequestMethod.GET)
-    public ServerResponse qqQuickLoginCallback(String code,String state) {
-        return userService.qqQuickLoginCallback(code,state);
+    public ServerResponse qqQuickLoginCallback(HttpServletRequest request,HttpSession session) {
+        return userService.qqQuickLoginCallback(request,session);
     }
 }

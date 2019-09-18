@@ -28,7 +28,7 @@ public interface UserService {
 
     ServerResponse getTencentQuickLoginUrl(String redirectUrl);
 
-    ServerResponse qqQuickLoginCallback(String code, String state);
+    ServerResponse qqQuickLoginCallback(HttpServletRequest request,HttpSession session);
 
 
 }
