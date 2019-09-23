@@ -60,4 +60,22 @@ public class ArticleApiController {
     public ServerResponse getArticleById(Integer articleId) {
         return articleService.getArticleById(articleId);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "getHomeArticle", method = RequestMethod.GET)
+    public ServerResponse getHomeArticle() {
+        return articleService.getHomeArticle();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getArticleByTag", method = RequestMethod.GET)
+    public ServerResponse getArticleByTag(Integer tagId) {
+        return articleService.getArticleByTag(tagId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getArticleByCategory", method = RequestMethod.GET)
+    public ServerResponse getArticleByCategory(Integer categoryId) {
+        return articleService.getArticleByCategory(categoryId);
+    }
 }

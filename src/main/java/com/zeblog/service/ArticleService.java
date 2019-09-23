@@ -19,6 +19,12 @@ public interface ArticleService {
 
     ServerResponse<ArticleBo> getArticleById(Integer articleId);
 
+    ServerResponse<List<ArticleBo>> getHomeArticle();
+
+    ServerResponse<List<ArticleBo>> getArticleByTag(Integer tagId);
+
+    ServerResponse<List<ArticleBo>> getArticleByCategory(Integer categoryId);
+
     ServerResponse<Map<String ,String>> uploadImage(HttpServletRequest request, MultipartFile file);
 
     ServerResponse<ArticleBo> addArticle(HttpServletRequest request, ArticleBo article);

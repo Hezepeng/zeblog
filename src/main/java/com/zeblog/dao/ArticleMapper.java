@@ -20,6 +20,12 @@ public interface ArticleMapper {
 
     List<ArticleBo> selectAllArticle();
 
+    List<ArticleBo> selectHomeArticle();
+
+    List<ArticleBo> selectArticleByTagId(Integer tagId);
+
+    List<ArticleBo> selectArticleByCategoryId(Integer categoryId);
+
     int updateByPrimaryKey(ArticleBo article);
 
     List<ArticleTag> selectArticleTagByArticleId(Integer articleId);

@@ -152,4 +152,26 @@
     from article_category ac inner join category c on ac.categoryId = c.categoryId
     where ArticleId = #{articleId,jdbcType=INTEGER}
   </select>
+  <select id="selectHomeArticle" resultMap="ArticleBoResultMap">
+  select <include refid="ColumnSimpleUserWithText"></include>
+  from article a left outer join user u on a.AuthorId = u.UserId
+  order by a.CreateTime desc
+  limit 5
+  </select>
+  <select id="selectArticleByTagId" parameterType="java.lang.Integer" resultMap="ArticleBoResultMap">
+    select <include refid="ColumnSimpleUserWithText"></include>
+    from article a
+    left outer join article_tag at on a.articleId = at.articleId
+    left outer join user u on a.AuthorId = u.UserId
+    order by a.CreateTime desc
+    limit 5
+  </select>
+  <select id="selectArticleByCategoryId" parameterType="java.lang.Integer" resultMap="ArticleBoResultMap">
+    select <include refid="ColumnSimpleUserWithText"></include>
+    from article a
+    left outer join article_category ac on a.articleId = ac.articleId
+    left outer join user u on a.AuthorId = u.UserId
+    order by a.CreateTime desc
+    limit 5
+  </select>
 </mapper>

@@ -1,10 +1,8 @@
 package com.zeblog.util;
 
 import com.zeblog.common.Const;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.faces.component.html.HtmlPanelGrid;
@@ -20,8 +18,11 @@ import java.util.Date;
  */
 public class TokenUtil {
 
-    public static String createJWT(String id, String subject) {
+    public static String createJWT(String id, String subject){
 
+        if(StringUtils.isEmpty(id)||StringUtils.isEmpty(subject)){
+            throw new IllegalArgumentException(" JWT String argument cannot be null or empty.");
+        }
         //定义签名的加密方法
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 

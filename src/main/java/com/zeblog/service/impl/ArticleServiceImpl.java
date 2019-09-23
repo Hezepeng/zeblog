@@ -46,6 +46,21 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public ServerResponse<List<ArticleBo>> getHomeArticle() {
+        return ServerResponse.createBySuccess(articleMapper.selectHomeArticle());
+    }
+
+    @Override
+    public ServerResponse<List<ArticleBo>> getArticleByTag(Integer tagId) {
+        return ServerResponse.createBySuccess(articleMapper.selectArticleByTagId(tagId));
+    }
+
+    @Override
+    public ServerResponse<List<ArticleBo>> getArticleByCategory(Integer categoryId) {
+        return ServerResponse.createBySuccess(articleMapper.selectArticleByTagId(categoryId));
+    }
+
+    @Override
     public ServerResponse<Map<String, String>> uploadImage(HttpServletRequest request, MultipartFile file) {
         // 获取webapp所在的物理路径
         String rootPath = request.getSession().getServletContext().getRealPath("");
