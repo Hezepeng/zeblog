@@ -1,5 +1,6 @@
 package com.zeblog.controller;
 
+import com.zeblog.common.Const;
 import com.zeblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,11 @@ public class HomeController {
     @ResponseBody
     @RequestMapping("redirect_to_vue")
     public String Redirect(HttpServletRequest request, HttpSession session){
-        String token = session.getAttribute("token").toString();
-        return "redirect:http://47.100.207.45/#/blog/home?token="+token;
+        if(session.getAttribute(Const.TOKEN_HEADER_NAME)!=null){
+            String token = session.getAttribute(Const.TOKEN_HEADER_NAME).toString();
+            return "redirect:https://www.hezepeng.top";
+        }
+        return "redirect:https://www.hezepeng.top/404";
     }
 
 }

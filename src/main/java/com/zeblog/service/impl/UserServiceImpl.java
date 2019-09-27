@@ -6,6 +6,7 @@ import com.qq.connect.api.qzone.UserInfo;
 import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.qq.connect.oauth.Oauth;
+import com.zeblog.common.Const;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.UserMapper;
 import com.zeblog.entity.User;
@@ -19,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import javax.jms.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -142,31 +145,25 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ServerResponse getTencentQuickLoginUrl(String redirectUrl) {
+    public ServerResponse getTencentQuickLoginUrl(HttpServletRequest req, HttpSession session){
         try {
-            Properties properties = new Properties();
-            String configFileName = "local.properties";
-            properties.load(new InputStreamReader(Objects.requireNonNull(PropertiesUtil.class.getClassLoader().getResourceAsStream(configFileName)), StandardCharsets.UTF_8));
-            String appId = properties.getProperty("qc_AppId");
-            String salt = TimestampUtil.getMillisTimestamp();
-            String url = String.format("https://graph.qq.com/oauth2.0/authorize?client_id=%s&response_type=code&redirect_uri=%s&state=%s", appId, redirectUrl, salt);
+            String url = new Oauth().getAuthorizeURL(req);
+            session.setAttribute("Referer",req.getHeader("Referer"));
             return ServerResponse.createBySuccess(url);
-
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ServerResponse.createByErrorMessage("读取配置异常");
+            return ServerResponse.createByErrorMessage("跳转到QQ登录页面异常");
         }
     }
 
     @Override
-    public ServerResponse qqQuickLoginCallback(HttpServletRequest request, HttpSession session) {
+    public String qqQuickLoginCallback(HttpServletRequest request, HttpSession session) {
         try {
             AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
             String accessToken = null;
             String openId = null;
             long expireIn = 0L;
             if ("".equals(accessTokenObj.getAccessToken())) {
-                return ServerResponse.createByErrorMessage("获取token失败");
+                return "获取token失败";
             } else {
                 accessToken = accessTokenObj.getAccessToken();
                 expireIn = accessTokenObj.getExpireIn();
@@ -187,18 +184,17 @@ public class UserServiceImpl implements UserService {
                     user.setLoginTimes(0);
                     int effectRow = userMapper.insert(user);
                     if (effectRow == 0) {
-                        return ServerResponse.createByErrorMessage("注册失败");
+                        return "注册失败";
                     }
                 }
                 String token = TokenUtil.createJWT(user.getUserId().toString(), user.getUsername());
-                Map<String, String> resultMap = new HashMap<>(10);
-                resultMap.put("token", token);
-                session.setAttribute("token", token);
-                return ServerResponse.createBySuccess("登录成功", resultMap);
+                session.setAttribute(Const.TOKEN_HEADER_NAME, token);
+                String referUrl = session.getAttribute("Referer").toString();
+                return "redirect:"+referUrl+"?token="+token;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ServerResponse.createByErrorMessage("注册时发生异常");
+            return Arrays.toString(e.getStackTrace()) +e.getMessage();
         }
     }
 

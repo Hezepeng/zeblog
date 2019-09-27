@@ -4,6 +4,7 @@ import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +27,9 @@ public interface UserService {
 
     ServerResponse checkUsername(String username);
 
-    ServerResponse getTencentQuickLoginUrl(String redirectUrl);
+    ServerResponse getTencentQuickLoginUrl(HttpServletRequest request, HttpSession session);
 
-    ServerResponse qqQuickLoginCallback(HttpServletRequest request,HttpSession session);
+    String qqQuickLoginCallback(HttpServletRequest request,HttpSession session);
 
 
 }

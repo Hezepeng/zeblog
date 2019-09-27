@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -78,13 +79,12 @@ public class UserApiController {
 
     @ResponseBody
     @RequestMapping(value = "qqQuickLogin", method = RequestMethod.GET)
-    public ServerResponse getTencentQuickLoginUrl(String redirect_url) {
-        return userService.getTencentQuickLoginUrl(redirect_url);
+    public ServerResponse getTencentQuickLoginUrl(HttpServletRequest request, HttpSession session) {
+            return userService.getTencentQuickLoginUrl(request, session);
     }
 
-    @ResponseBody
     @RequestMapping(value = "qqQuickLoginCallback", method = RequestMethod.GET)
-    public ServerResponse qqQuickLoginCallback(HttpServletRequest request,HttpSession session) {
+    public String qqQuickLoginCallback(HttpServletRequest request,HttpSession session) {
         return userService.qqQuickLoginCallback(request,session);
     }
 }
