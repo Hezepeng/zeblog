@@ -1,6 +1,7 @@
 package com.zeblog.service;
 
 import com.zeblog.bo.ArticleBo;
+import com.zeblog.bo.ArticleByPageBo;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.entity.Article;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,8 @@ public interface ArticleService {
 
     ServerResponse<List<ArticleBo>> getHomeArticle();
 
+    ServerResponse<ArticleByPageBo> getArticleByPage(Integer page);
+
     ServerResponse<List<ArticleBo>> getArticleByTag(Integer tagId);
 
     ServerResponse<List<ArticleBo>> getArticleByCategory(Integer categoryId);
@@ -34,6 +37,5 @@ public interface ArticleService {
     ServerResponse<ArticleBo> deleteArticle(HttpServletRequest request, ArticleBo article);
 
 
-
-
+    ServerResponse<List<ArticleBo>> getHotArticle();
 }

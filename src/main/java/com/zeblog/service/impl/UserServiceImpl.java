@@ -176,16 +176,19 @@ public class UserServiceImpl implements UserService {
                     //以前没登录过，先注册
                     user = new User();
                     user.setUsername(openId);
+                    user.setName("快捷登录用户");
                     user.setNickname(userInfoBean.getNickname());
                     user.setAvatar(userInfoBean.getAvatar().getAvatarURL100());
                     user.setPassword(MD5Util.getMD5Upper("123456"));
                     user.setRole("editor");
                     user.setCreateTime(new Date());
-                    user.setLoginTimes(0);
+                    user.setLoginTimes(1);
                     int effectRow = userMapper.insert(user);
                     if (effectRow == 0) {
                         return "注册失败";
                     }
+                }else{
+
                 }
                 String token = TokenUtil.createJWT(user.getUserId().toString(), user.getUsername());
                 session.setAttribute(Const.TOKEN_HEADER_NAME, token);

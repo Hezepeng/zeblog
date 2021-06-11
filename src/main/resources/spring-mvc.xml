@@ -84,6 +84,8 @@
             <mvc:exclude-mapping path="/api/user/qqQuickLoginCallback"/>
             <mvc:exclude-mapping path="/api/article/getArticleById"/>
             <mvc:exclude-mapping path="/api/article/getHomeArticle"/>
+            <mvc:exclude-mapping path="/api/article/getHotArticle"/>
+            <mvc:exclude-mapping path="/api/article/getArticleByPage"/>
             <mvc:exclude-mapping path="/api/article/getArticleByTag"/>
             <mvc:exclude-mapping path="/api/article/getArticleByCategory"/>
             <mvc:exclude-mapping path="/api/carousel/getAllCarousel"/>

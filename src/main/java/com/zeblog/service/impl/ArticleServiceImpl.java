@@ -1,6 +1,7 @@
 package com.zeblog.service.impl;
 
 import com.zeblog.bo.ArticleBo;
+import com.zeblog.bo.ArticleByPageBo;
 import com.zeblog.common.Const;
 import com.zeblog.common.ServerResponse;
 import com.zeblog.dao.ArticleCategoryMapper;
@@ -42,12 +43,27 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ServerResponse<ArticleBo> getArticleById(Integer articleId) {
+        articleMapper.updateArticleReadTimes(articleId);
         return ServerResponse.createBySuccess(articleMapper.selectArticleByArticleId(articleId));
     }
 
     @Override
     public ServerResponse<List<ArticleBo>> getHomeArticle() {
         return ServerResponse.createBySuccess(articleMapper.selectHomeArticle());
+    }
+
+    @Override
+    public ServerResponse<ArticleByPageBo> getArticleByPage(Integer page) {
+        page = page < 1 ? 1 : page;
+        page -= 1;
+        ArticleByPageBo articlePageBo = new ArticleByPageBo();
+        articlePageBo.setArticleList(articleMapper.selectArticleByPage(page * 5));
+        articlePageBo.setArticleTotalCount(articleMapper.selectArticleCount());
+        for (ArticleBo article : articlePageBo.getArticleList()) {
+            int subIndex = Math.min(article.getHtmlContent().length(), 1500);
+            article.setHtmlContent(article.getHtmlContent().substring(0, subIndex));
+        }
+        return ServerResponse.createBySuccess(articlePageBo);
     }
 
     @Override
@@ -120,7 +136,8 @@ public class ArticleServiceImpl implements ArticleService {
         if (effectRow == 0) {
             return ServerResponse.createByErrorMessage("发布文章失败");
         }
-        String msg = article.getState() == 0 ? "文章已保存到草稿箱" : "发布文章成功";
+//        String msg = article.getState() == 0 ? "文章已保存到草稿箱" : "发布文章成功";
+        String msg = article.getState() == 0 ? "文章已按HTML形式发表" : "文章已按MarkDown形式发表";
         return ServerResponse.createBySuccess(msg, article);
     }
 
@@ -160,5 +177,10 @@ public class ArticleServiceImpl implements ArticleService {
             return ServerResponse.createBySuccessMessage("该文章已删除");
         }
         return ServerResponse.createByErrorMessage("未接收到文章信息");
+    }
+
+    @Override
+    public ServerResponse<List<ArticleBo>> getHotArticle() {
+        return ServerResponse.createBySuccess(articleMapper.selectArticleOrderByReadTimes());
     }
 }

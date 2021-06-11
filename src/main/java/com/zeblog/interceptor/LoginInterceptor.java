@@ -40,7 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         // 获取请求Headers中的token
-        String token = request.getHeader("X-Token");
+        String token = request.getHeader(Const.TOKEN_HEADER_NAME);
         // 解析token是否合法
         Claims claims = null;
         try {

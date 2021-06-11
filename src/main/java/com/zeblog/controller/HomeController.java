@@ -27,12 +27,12 @@ public class HomeController {
 
     @ResponseBody
     @RequestMapping("redirect_to_vue")
-    public String Redirect(HttpServletRequest request, HttpSession session){
-        if(session.getAttribute(Const.TOKEN_HEADER_NAME)!=null){
+    public String Redirect(HttpServletRequest request, HttpSession session) {
+        if (session.getAttribute(Const.TOKEN_HEADER_NAME) != null) {
             String token = session.getAttribute(Const.TOKEN_HEADER_NAME).toString();
-            return "redirect:https://www.hezepeng.top";
+            return "redirect:https://www.hezepeng.com/vue/admin/home?token=" + token;
         }
-        return "redirect:https://www.hezepeng.top/404";
+        return "redirect:https://www.hezepeng.com/vue/404";
     }
 
 }

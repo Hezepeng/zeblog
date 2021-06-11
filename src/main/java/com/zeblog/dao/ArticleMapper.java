@@ -22,6 +22,8 @@ public interface ArticleMapper {
 
     List<ArticleBo> selectHomeArticle();
 
+    List<ArticleBo> selectArticleByPage(Integer skip);
+
     List<ArticleBo> selectArticleByTagId(Integer tagId);
 
     List<ArticleBo> selectArticleByCategoryId(Integer categoryId);
@@ -32,4 +34,9 @@ public interface ArticleMapper {
 
     List<ArticleCategory> selectArticleCategoryByArticleId(Integer articleId);
 
+    Integer selectArticleCount();
+
+    void updateArticleReadTimes(Integer articleId);
+
+    List<ArticleBo> selectArticleOrderByReadTimes();
 }

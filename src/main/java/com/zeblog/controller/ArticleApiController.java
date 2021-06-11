@@ -68,6 +68,19 @@ public class ArticleApiController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "getHotArticle", method = RequestMethod.GET)
+    public ServerResponse getHotArticle() {
+        return articleService.getHotArticle();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getArticleByPage", method = RequestMethod.GET)
+    public ServerResponse getArticleByPage(Integer page) {
+        return articleService.getArticleByPage(page);
+    }
+
+
+    @ResponseBody
     @RequestMapping(value = "getArticleByTag", method = RequestMethod.GET)
     public ServerResponse getArticleByTag(Integer tagId) {
         return articleService.getArticleByTag(tagId);
